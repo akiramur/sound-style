@@ -12,7 +12,10 @@ import { poiGeoJson } from './poi-data.js';
  * code.
  */
 async function loadSoundStyle(): Promise<SoundStyleSpecification> {
-  const response = await fetch('/styles/sound-style-basic.json');
+  // Use BASE_URL (not a hardcoded root-relative path) so this resolves correctly whether served
+  // from '/' (local dev) or a subpath like '/sound-style/' (GitHub Pages project site) — vite's
+  // `base` config only rewrites asset URLs it knows about at build time, not runtime fetch() calls.
+  const response = await fetch(`${import.meta.env.BASE_URL}styles/sound-style-basic.json`);
   return validateSoundStyle(await response.json());
 }
 
