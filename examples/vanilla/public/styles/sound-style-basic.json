@@ -1,0 +1,3824 @@
+{
+  "version": 1,
+  "name": "sound-style-demo-basic",
+  "sources": {
+    "poi-sfx": {
+      "type": "audio-sprite",
+      "url": "/audio/poi-sfx.wav",
+      "sprite": {
+        "select": {
+          "start": 0,
+          "end": 1.881633
+        },
+        "deselect": {
+          "start": 1.881633,
+          "end": 3.428163
+        }
+      },
+      "attribution": "\"Interface Sounds\" by <a href=\"https://kenney.nl/assets/interface-sounds\" target=\"_blank\">Kenney</a> (CC0)"
+    },
+    "traffic-sfx": {
+      "type": "single",
+      "url": "/audio/traffic-jam.wav",
+      "attribution": "Traffic jam recording via <a href=\"https://pixabay.com/\" target=\"_blank\">Pixabay</a> (Pixabay Content License)"
+    },
+    "weather-rain-ambient": {
+      "type": "single",
+      "url": "/audio/weather-rain-ambient.wav",
+      "loop": true,
+      "streaming": true
+    },
+    "weather-storm-ambient": {
+      "type": "single",
+      "url": "/audio/weather-storm-ambient.wav",
+      "loop": true,
+      "streaming": true
+    },
+    "area-bgm-urban": {
+      "type": "single",
+      "url": "/audio/area-bgm-urban.mp3",
+      "loop": true,
+      "streaming": true,
+      "attribution": "\"Town Theme RPG\" by cynicmusic (CC0)"
+    },
+    "area-bgm-sea": {
+      "type": "single",
+      "url": "/audio/area-bgm-sea.mp3",
+      "loop": true,
+      "streaming": true
+    },
+    "area-bgm-desert": {
+      "type": "single",
+      "url": "/audio/area-bgm-desert.mp3",
+      "loop": true,
+      "streaming": true
+    },
+    "area-bgm-forest": {
+      "type": "single",
+      "url": "/audio/area-bgm-forest.mp3",
+      "loop": true,
+      "streaming": true
+    },
+    "world-view-bgm": {
+      "type": "single",
+      "url": "/audio/world-view-bgm.mp3",
+      "loop": true,
+      "streaming": true
+    },
+    "sky-sfx": {
+      "type": "audio-sprite",
+      "url": "/audio/sky-sfx.wav",
+      "sprite": {
+        "dawn": {
+          "start": 0,
+          "end": 3.4
+        },
+        "day": {
+          "start": 3.4,
+          "end": 6.8
+        },
+        "dusk": {
+          "start": 6.8,
+          "end": 10.2
+        },
+        "night": {
+          "start": 10.2,
+          "end": 13.9
+        }
+      }
+    },
+    "flyto-sfx": {
+      "type": "single",
+      "url": "/audio/flyto-whoosh.wav"
+    },
+    "ease-glide-sfx": {
+      "type": "single",
+      "url": "/audio/ease-glide.wav"
+    },
+    "jump-teleport-sfx": {
+      "type": "single",
+      "url": "/audio/jump-teleport.wav"
+    },
+    "jp-country-bgm-forest": {
+      "type": "single",
+      "url": "/audio/jp-country-bgm-forest.wav",
+      "loop": true,
+      "streaming": true
+    },
+    "jp-country-bgm-urban": {
+      "type": "single",
+      "url": "/audio/jp-country-bgm-urban.wav",
+      "loop": true,
+      "streaming": true
+    },
+    "jp-country-bgm-urban-night": {
+      "type": "single",
+      "url": "/audio/jp-country-bgm-urban-night.wav",
+      "loop": true,
+      "streaming": true
+    },
+    "light-terrain-bgm": {
+      "type": "single",
+      "url": "/audio/light-terrain-bgm.wav",
+      "loop": true,
+      "streaming": true
+    },
+    "jp-forest-night-bgm": {
+      "type": "single",
+      "url": "/audio/jp-forest-night-bgm.wav",
+      "loop": true,
+      "streaming": true
+    },
+    "gb-country-bgm": {
+      "type": "single",
+      "url": "/audio/gb-country-bgm.wav",
+      "loop": true,
+      "streaming": true
+    },
+    "poi-category-sfx/dog-park": {
+      "type": "single",
+      "url": "/audio/poi-category-dog-park.wav"
+    },
+    "poi-category-sfx/religious-christian": {
+      "type": "single",
+      "url": "/audio/poi-category-religious-christian.wav"
+    },
+    "poi-category-sfx/airport": {
+      "type": "single",
+      "url": "/audio/poi-category-airport-sydney.wav"
+    },
+    "poi-category-sfx/restaurant": {
+      "type": "single",
+      "url": "/audio/poi-category-restaurant.wav"
+    },
+    "poi-category-sfx/amusement-park": {
+      "type": "single",
+      "url": "/audio/poi-category-amusement-park.wav"
+    },
+    "poi-category-sfx/bar": {
+      "type": "single",
+      "url": "/audio/poi-category-bar.wav"
+    },
+    "poi-category-sfx/stadium": {
+      "type": "single",
+      "url": "/audio/poi-category-stadium.wav"
+    },
+    "poi-category-sfx/basketball": {
+      "type": "single",
+      "url": "/audio/poi-category-basketball.wav"
+    },
+    "poi-category-sfx/school": {
+      "type": "single",
+      "url": "/audio/poi-category-school.wav"
+    },
+    "poi-category-sfx/college-library": {
+      "type": "single",
+      "url": "/audio/poi-category-college-library.wav"
+    },
+    "poi-category-sfx/beach": {
+      "type": "single",
+      "url": "/audio/poi-category-beach.wav"
+    },
+    "poi-category-sfx/bicycle": {
+      "type": "single",
+      "url": "/audio/poi-category-bicycle.wav"
+    },
+    "poi-category-sfx/shop": {
+      "type": "single",
+      "url": "/audio/poi-category-shop.wav"
+    },
+    "poi-category-sfx/castle": {
+      "type": "single",
+      "url": "/audio/poi-category-castle.wav"
+    },
+    "poi-category-sfx/attraction": {
+      "type": "single",
+      "url": "/audio/poi-category-attraction.wav"
+    },
+    "poi-category-sfx/cemetery": {
+      "type": "single",
+      "url": "/audio/poi-category-cemetery.wav"
+    },
+    "poi-category-sfx/zoo": {
+      "type": "single",
+      "url": "/audio/poi-category-zoo.wav"
+    },
+    "poi-category-sfx/aquarium": {
+      "type": "single",
+      "url": "/audio/poi-category-aquarium.wav"
+    },
+    "poi-category-sfx/alcohol-shop": {
+      "type": "single",
+      "url": "/audio/poi-category-alcohol-shop.wav"
+    },
+    "poi-category-sfx/monument": {
+      "type": "single",
+      "url": "/audio/poi-category-monument.wav"
+    },
+    "poi-category-sfx/landmark": {
+      "type": "single",
+      "url": "/audio/poi-category-landmark.wav"
+    },
+    "poi-category-sfx/waterfall": {
+      "type": "single",
+      "url": "/audio/poi-category-waterfall.wav"
+    },
+    "poi-category-sfx/police": {
+      "type": "single",
+      "url": "/audio/poi-category-police.wav"
+    },
+    "poi-category-sfx/fire-station": {
+      "type": "single",
+      "url": "/audio/poi-category-fire-station.wav"
+    },
+    "poi-category-sfx/car": {
+      "type": "single",
+      "url": "/audio/poi-category-car.wav"
+    },
+    "poi-category-sfx/farm": {
+      "type": "single",
+      "url": "/audio/poi-category-farm.wav"
+    },
+    "poi-category-sfx/horse": {
+      "type": "single",
+      "url": "/audio/poi-category-horse.wav"
+    },
+    "poi-category-sfx/windmill": {
+      "type": "single",
+      "url": "/audio/poi-category-windmill.wav"
+    },
+    "poi-category-sfx/veterinary": {
+      "type": "single",
+      "url": "/audio/poi-category-veterinary.wav"
+    },
+    "poi-category-sfx/golf": {
+      "type": "single",
+      "url": "/audio/poi-category-golf.wav"
+    },
+    "poi-category-sfx/dentist": {
+      "type": "single",
+      "url": "/audio/poi-category-dentist.wav"
+    },
+    "poi-category-sfx/casino": {
+      "type": "single",
+      "url": "/audio/poi-category-casino.wav"
+    },
+    "poi-category-sfx/highway": {
+      "type": "single",
+      "url": "/audio/poi-category-highway.wav"
+    },
+    "poi-category-sfx/religious-buddhist": {
+      "type": "single",
+      "url": "/audio/poi-category-religious-buddhist.wav"
+    },
+    "poi-category-sfx/religious-muslim": {
+      "type": "single",
+      "url": "/audio/poi-category-religious-muslim.wav"
+    },
+    "poi-category-sfx/bowling": {
+      "type": "single",
+      "url": "/audio/poi-category-bowling.wav"
+    },
+    "poi-category-sfx/volleyball": {
+      "type": "single",
+      "url": "/audio/poi-category-volleyball.wav"
+    },
+    "poi-category-sfx/tennis": {
+      "type": "single",
+      "url": "/audio/poi-category-tennis.wav"
+    },
+    "poi-category-sfx/hot-spring": {
+      "type": "single",
+      "url": "/audio/poi-category-hot-spring.wav"
+    },
+    "poi-category-sfx/heliport": {
+      "type": "single",
+      "url": "/audio/poi-category-heliport.wav"
+    },
+    "poi-category-sfx/laundry": {
+      "type": "single",
+      "url": "/audio/poi-category-laundry.wav"
+    },
+    "poi-category-sfx/industrial": {
+      "type": "single",
+      "url": "/audio/poi-category-industrial.wav"
+    },
+    "poi-category-sfx/information": {
+      "type": "single",
+      "url": "/audio/poi-category-information.wav"
+    },
+    "poi-category-sfx/music": {
+      "type": "single",
+      "url": "/audio/poi-category-music.wav"
+    },
+    "poi-category-sfx/parking": {
+      "type": "single",
+      "url": "/audio/poi-category-parking.wav"
+    },
+    "poi-category-sfx/racetrack": {
+      "type": "single",
+      "url": "/audio/poi-category-racetrack.wav"
+    },
+    "poi-category-sfx/religious-jewish": {
+      "type": "single",
+      "url": "/audio/poi-category-religious-jewish.wav"
+    },
+    "poi-category-sfx/religious-shinto": {
+      "type": "single",
+      "url": "/audio/poi-category-religious-shinto.wav"
+    },
+    "poi-category-sfx/skateboard": {
+      "type": "single",
+      "url": "/audio/poi-category-skateboard.wav"
+    },
+    "poi-category-sfx/table-tennis": {
+      "type": "single",
+      "url": "/audio/poi-category-table-tennis.wav"
+    },
+    "poi-category-sfx/theatre": {
+      "type": "single",
+      "url": "/audio/poi-category-theatre.wav"
+    },
+    "poi-category-sfx/toilet": {
+      "type": "single",
+      "url": "/audio/poi-category-toilet.wav"
+    },
+    "poi-category-sfx/car-repair": {
+      "type": "single",
+      "url": "/audio/poi-category-car-repair.wav"
+    },
+    "poi-category-sfx/car-wash": {
+      "type": "single",
+      "url": "/audio/poi-category-car-wash.wav"
+    },
+    "poi-category-sfx/communications-tower": {
+      "type": "single",
+      "url": "/audio/poi-category-communications-tower.wav"
+    },
+    "poi-category-sfx/fuel": {
+      "type": "single",
+      "url": "/audio/poi-category-fuel.wav"
+    },
+    "poi-category-sfx/station": {
+      "type": "single",
+      "url": "/audio/poi-category-station.wav"
+    },
+    "poi-category-sfx/bus-stop": {
+      "type": "single",
+      "url": "/audio/poi-category-bus-stop.wav"
+    }
+  },
+  "sound-layers": [
+    {
+      "id": "poi-click-sfx",
+      "type": "event",
+      "source": "poi-sfx",
+      "sound-clip": "select",
+      "target-layer": "poi-symbols",
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.8
+      }
+    },
+    {
+      "id": "traffic-sfx",
+      "type": "event",
+      "source": "traffic-sfx",
+      "target-layer": "traffic-lines",
+      "filter": [
+        "in",
+        [
+          "get",
+          "congestion"
+        ],
+        [
+          "literal",
+          [
+            "moderate",
+            "heavy",
+            "severe"
+          ]
+        ]
+      ],
+      "minzoom": 6,
+      "layout": {
+        "sound-trigger": "always",
+        "sound-debounce": 15000
+      },
+      "paint": {
+        "sound-volume": [
+          "match",
+          [
+            "get",
+            "congestion"
+          ],
+          "severe",
+          0.9,
+          "heavy",
+          0.6,
+          "moderate",
+          0.35,
+          0.35
+        ],
+        "sound-lowpass": [
+          "match",
+          [
+            "get",
+            "congestion"
+          ],
+          "severe",
+          4000,
+          "heavy",
+          2600,
+          1600
+        ]
+      }
+    },
+    {
+      "id": "weather-rain-ambient",
+      "type": "ambient",
+      "source": "weather-rain-ambient",
+      "layout": {
+        "sound-loop": true
+      },
+      "paint": {
+        "sound-volume": 0.8
+      }
+    },
+    {
+      "id": "weather-storm-ambient",
+      "type": "ambient",
+      "source": "weather-storm-ambient",
+      "layout": {
+        "sound-loop": true
+      },
+      "paint": {
+        "sound-volume": 0.8
+      }
+    },
+    {
+      "id": "area-bgm-switch-urban",
+      "type": "bgm-state",
+      "source": "area-bgm-urban",
+      "layout": {
+        "sound-state-property": "unused"
+      },
+      "paint": {
+        "sound-volume": 0.8,
+        "sound-fade-duration": 2000
+      }
+    },
+    {
+      "id": "area-bgm-switch-sea",
+      "type": "bgm-state",
+      "source": "area-bgm-sea",
+      "layout": {
+        "sound-state-property": "unused"
+      },
+      "paint": {
+        "sound-volume": 0.8,
+        "sound-fade-duration": 2000
+      }
+    },
+    {
+      "id": "area-bgm-switch-desert",
+      "type": "bgm-state",
+      "source": "area-bgm-desert",
+      "layout": {
+        "sound-state-property": "unused"
+      },
+      "paint": {
+        "sound-volume": 0.8,
+        "sound-fade-duration": 2000
+      }
+    },
+    {
+      "id": "area-bgm-switch-forest",
+      "type": "bgm-state",
+      "source": "area-bgm-forest",
+      "layout": {
+        "sound-state-property": "unused"
+      },
+      "paint": {
+        "sound-volume": 0.8,
+        "sound-fade-duration": 2000
+      }
+    },
+    {
+      "id": "country-bgm-override",
+      "type": "bgm-state",
+      "source": "jp-country-bgm-forest",
+      "layout": {
+        "sound-state-property": "unused"
+      },
+      "paint": {
+        "sound-volume": 0.8,
+        "sound-fade-duration": 2000
+      }
+    },
+    {
+      "id": "country-bgm-override-urban",
+      "type": "bgm-state",
+      "source": "jp-country-bgm-urban",
+      "layout": {
+        "sound-state-property": "unused"
+      },
+      "paint": {
+        "sound-volume": 0.8,
+        "sound-fade-duration": 2000
+      }
+    },
+    {
+      "id": "country-bgm-override-gb",
+      "type": "bgm-state",
+      "source": "gb-country-bgm",
+      "layout": {
+        "sound-state-property": "unused"
+      },
+      "paint": {
+        "sound-volume": 0.8,
+        "sound-fade-duration": 2000
+      }
+    },
+    {
+      "id": "light-terrain-bgm-override",
+      "type": "bgm-state",
+      "source": "light-terrain-bgm",
+      "layout": {
+        "sound-state-property": "unused"
+      },
+      "paint": {
+        "sound-volume": 0.8,
+        "sound-fade-duration": 2000
+      }
+    },
+    {
+      "id": "country-light-terrain-bgm-override-urban",
+      "type": "bgm-state",
+      "source": "jp-country-bgm-urban-night",
+      "layout": {
+        "sound-state-property": "unused"
+      },
+      "paint": {
+        "sound-volume": 0.8,
+        "sound-fade-duration": 2000
+      }
+    },
+    {
+      "id": "country-light-terrain-bgm-override-forest",
+      "type": "bgm-state",
+      "source": "jp-forest-night-bgm",
+      "layout": {
+        "sound-state-property": "unused"
+      },
+      "paint": {
+        "sound-volume": 0.8,
+        "sound-fade-duration": 2000
+      }
+    },
+    {
+      "id": "world-view-bgm-override",
+      "type": "bgm-state",
+      "source": "world-view-bgm",
+      "layout": {
+        "sound-state-property": "unused"
+      },
+      "paint": {
+        "sound-volume": 0.8,
+        "sound-fade-duration": 2000
+      }
+    },
+    {
+      "id": "daynight-sfx-dawn",
+      "type": "event",
+      "source": "sky-sfx",
+      "sound-clip": "dawn",
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.6
+      }
+    },
+    {
+      "id": "daynight-sfx-day",
+      "type": "event",
+      "source": "sky-sfx",
+      "sound-clip": "day",
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.6
+      }
+    },
+    {
+      "id": "daynight-sfx-dusk",
+      "type": "event",
+      "source": "sky-sfx",
+      "sound-clip": "dusk",
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.6
+      }
+    },
+    {
+      "id": "daynight-sfx-night",
+      "type": "event",
+      "source": "sky-sfx",
+      "sound-clip": "night",
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.6
+      }
+    },
+    {
+      "id": "poi-ping-airfield",
+      "type": "event",
+      "source": "poi-category-sfx/airport",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "airfield"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-airport",
+      "type": "event",
+      "source": "poi-category-sfx/airport",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "airport"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-alcohol-shop",
+      "type": "event",
+      "source": "poi-category-sfx/alcohol-shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "alcohol-shop"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-american-football",
+      "type": "event",
+      "source": "poi-category-sfx/stadium",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "american-football"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-amusement-park",
+      "type": "event",
+      "source": "poi-category-sfx/amusement-park",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "amusement-park"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-aquarium",
+      "type": "event",
+      "source": "poi-category-sfx/aquarium",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "aquarium"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-art-gallery",
+      "type": "event",
+      "source": "poi-category-sfx/college-library",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "art-gallery"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-attraction",
+      "type": "event",
+      "source": "poi-category-sfx/attraction",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "attraction"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-bakery",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "bakery"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-bank",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "bank"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-bar",
+      "type": "event",
+      "source": "poi-category-sfx/bar",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "bar"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-baseball",
+      "type": "event",
+      "source": "poi-category-sfx/stadium",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "baseball"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-basketball",
+      "type": "event",
+      "source": "poi-category-sfx/basketball",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "basketball"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-beach",
+      "type": "event",
+      "source": "poi-category-sfx/beach",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "beach"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-beer",
+      "type": "event",
+      "source": "poi-category-sfx/bar",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "beer"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-bicycle",
+      "type": "event",
+      "source": "poi-category-sfx/bicycle",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "bicycle"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-bowling-alley",
+      "type": "event",
+      "source": "poi-category-sfx/bowling",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "bowling-alley"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-bridge",
+      "type": "event",
+      "source": "poi-category-sfx/highway",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "bridge"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-cafe",
+      "type": "event",
+      "source": "poi-category-sfx/college-library",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "cafe"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-campsite",
+      "type": "event",
+      "source": "poi-category-sfx/dog-park",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "campsite"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-car",
+      "type": "event",
+      "source": "poi-category-sfx/car",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "car"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-car-rental",
+      "type": "event",
+      "source": "poi-category-sfx/car",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "car-rental"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-car-repair",
+      "type": "event",
+      "source": "poi-category-sfx/car-repair",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "car-repair"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-car-wash",
+      "type": "event",
+      "source": "poi-category-sfx/car-wash",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "car-wash"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-casino",
+      "type": "event",
+      "source": "poi-category-sfx/casino",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "casino"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-castle",
+      "type": "event",
+      "source": "poi-category-sfx/castle",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "castle"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-cemetery",
+      "type": "event",
+      "source": "poi-category-sfx/cemetery",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "cemetery"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-charging-station",
+      "type": "event",
+      "source": "poi-category-sfx/parking",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "charging-station"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-cinema",
+      "type": "event",
+      "source": "poi-category-sfx/college-library",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "cinema"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-clothing-store",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "clothing-store"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-college",
+      "type": "event",
+      "source": "poi-category-sfx/college-library",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "college"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-communications-tower",
+      "type": "event",
+      "source": "poi-category-sfx/communications-tower",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "communications-tower"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-confectionery",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "confectionery"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-convenience",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "convenience"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-dentist",
+      "type": "event",
+      "source": "poi-category-sfx/dentist",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "dentist"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-dog-park",
+      "type": "event",
+      "source": "poi-category-sfx/dog-park",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "dog-park"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-drinking-water",
+      "type": "event",
+      "source": "poi-category-sfx/aquarium",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "drinking-water"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-embassy",
+      "type": "event",
+      "source": "poi-category-sfx/attraction",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "embassy"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-farm",
+      "type": "event",
+      "source": "poi-category-sfx/farm",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "farm"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-fire-station",
+      "type": "event",
+      "source": "poi-category-sfx/fire-station",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "fire-station"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-fuel",
+      "type": "event",
+      "source": "poi-category-sfx/fuel",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "fuel"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-furniture",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "furniture"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-golf",
+      "type": "event",
+      "source": "poi-category-sfx/golf",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "golf"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-grocery",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "grocery"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-harbor",
+      "type": "event",
+      "source": "poi-category-sfx/beach",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "harbor"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-hardware",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "hardware"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-heliport",
+      "type": "event",
+      "source": "poi-category-sfx/heliport",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "heliport"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-highway-rest-area",
+      "type": "event",
+      "source": "poi-category-sfx/highway",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "highway-rest-area"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-highway-services",
+      "type": "event",
+      "source": "poi-category-sfx/highway",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "highway-services"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-horse-riding",
+      "type": "event",
+      "source": "poi-category-sfx/horse",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "horse-riding"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-hot-spring",
+      "type": "event",
+      "source": "poi-category-sfx/hot-spring",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "hot-spring"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-information",
+      "type": "event",
+      "source": "poi-category-sfx/information",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "information"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-jewelry-store",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "jewelry-store"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-landmark",
+      "type": "event",
+      "source": "poi-category-sfx/landmark",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "landmark"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-laundry",
+      "type": "event",
+      "source": "poi-category-sfx/laundry",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "laundry"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-library",
+      "type": "event",
+      "source": "poi-category-sfx/college-library",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "library"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-lodging",
+      "type": "event",
+      "source": "poi-category-sfx/attraction",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "lodging"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-mobile-phone",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "mobile-phone"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-monument",
+      "type": "event",
+      "source": "poi-category-sfx/monument",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "monument"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-mountain",
+      "type": "event",
+      "source": "poi-category-sfx/monument",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "mountain"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-mountain-range",
+      "type": "event",
+      "source": "poi-category-sfx/monument",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "mountain-range"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-museum",
+      "type": "event",
+      "source": "poi-category-sfx/monument",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "museum"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-music",
+      "type": "event",
+      "source": "poi-category-sfx/music",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "music"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-optician",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "optician"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-parking",
+      "type": "event",
+      "source": "poi-category-sfx/parking",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "parking"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-pharmacy",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "pharmacy"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-place-of-worship",
+      "type": "event",
+      "source": "poi-category-sfx/religious-christian",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "place-of-worship"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-playground",
+      "type": "event",
+      "source": "poi-category-sfx/school",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "playground"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-police",
+      "type": "event",
+      "source": "poi-category-sfx/police",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "police"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-post",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "post"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-prison",
+      "type": "event",
+      "source": "poi-category-sfx/police",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "prison"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-racetrack",
+      "type": "event",
+      "source": "poi-category-sfx/racetrack",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "racetrack"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-racetrack-horse",
+      "type": "event",
+      "source": "poi-category-sfx/horse",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "racetrack-horse"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-religious-buddhist",
+      "type": "event",
+      "source": "poi-category-sfx/religious-buddhist",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "religious-buddhist"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-religious-christian",
+      "type": "event",
+      "source": "poi-category-sfx/religious-christian",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "religious-christian"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-religious-jewish",
+      "type": "event",
+      "source": "poi-category-sfx/religious-jewish",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "religious-jewish"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-religious-muslim",
+      "type": "event",
+      "source": "poi-category-sfx/religious-muslim",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "religious-muslim"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-religious-shinto",
+      "type": "event",
+      "source": "poi-category-sfx/religious-shinto",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "religious-shinto"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-restaurant",
+      "type": "event",
+      "source": "poi-category-sfx/restaurant",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "restaurant"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-restaurant-casual",
+      "type": "event",
+      "source": "poi-category-sfx/restaurant",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "restaurant-casual"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-restaurant-noodle",
+      "type": "event",
+      "source": "poi-category-sfx/restaurant",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "restaurant-noodle"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-restaurant-pizza",
+      "type": "event",
+      "source": "poi-category-sfx/restaurant",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "restaurant-pizza"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-restaurant-seafood",
+      "type": "event",
+      "source": "poi-category-sfx/restaurant",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "restaurant-seafood"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-restaurant-sushi",
+      "type": "event",
+      "source": "poi-category-sfx/restaurant",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "restaurant-sushi"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-school",
+      "type": "event",
+      "source": "poi-category-sfx/school",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "school"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-shoe",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "shoe"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-shop",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "shop"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-skateboard",
+      "type": "event",
+      "source": "poi-category-sfx/skateboard",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "skateboard"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-stadium",
+      "type": "event",
+      "source": "poi-category-sfx/stadium",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "stadium"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-table-tennis",
+      "type": "event",
+      "source": "poi-category-sfx/table-tennis",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "table-tennis"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-tennis",
+      "type": "event",
+      "source": "poi-category-sfx/tennis",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "tennis"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-theatre",
+      "type": "event",
+      "source": "poi-category-sfx/theatre",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "theatre"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-toilet",
+      "type": "event",
+      "source": "poi-category-sfx/toilet",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "toilet"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-town-hall",
+      "type": "event",
+      "source": "poi-category-sfx/attraction",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "town-hall"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-veterinary",
+      "type": "event",
+      "source": "poi-category-sfx/veterinary",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "veterinary"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-viewpoint",
+      "type": "event",
+      "source": "poi-category-sfx/landmark",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "viewpoint"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-volleyball",
+      "type": "event",
+      "source": "poi-category-sfx/volleyball",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "volleyball"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-waterfall",
+      "type": "event",
+      "source": "poi-category-sfx/waterfall",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "waterfall"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-watermill",
+      "type": "event",
+      "source": "poi-category-sfx/attraction",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "watermill"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-windmill",
+      "type": "event",
+      "source": "poi-category-sfx/windmill",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "windmill"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-zoo",
+      "type": "event",
+      "source": "poi-category-sfx/zoo",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "zoo"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-doctor",
+      "type": "event",
+      "source": "poi-category-sfx/college-library",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "doctor"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-fast-food",
+      "type": "event",
+      "source": "poi-category-sfx/bar",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "fast-food"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-fitness-centre",
+      "type": "event",
+      "source": "poi-category-sfx/college-library",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "fitness-centre"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-garden",
+      "type": "event",
+      "source": "poi-category-sfx/farm",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "garden"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-park",
+      "type": "event",
+      "source": "poi-category-sfx/dog-park",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "park"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-parking-garage",
+      "type": "event",
+      "source": "poi-category-sfx/parking",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "parking-garage"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-parking-paid",
+      "type": "event",
+      "source": "poi-category-sfx/parking",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "parking-paid"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-peak",
+      "type": "event",
+      "source": "poi-category-sfx/monument",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "peak"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-picnic-site",
+      "type": "event",
+      "source": "poi-category-sfx/school",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "picnic-site"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-pitch",
+      "type": "event",
+      "source": "poi-category-sfx/monument",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "pitch"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-ranger-station",
+      "type": "event",
+      "source": "poi-category-sfx/police",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "ranger-station"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-skiing",
+      "type": "event",
+      "source": "poi-category-sfx/college-library",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "skiing"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-slipway",
+      "type": "event",
+      "source": "poi-category-sfx/college-library",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "slipway"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-suitcase",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "suitcase"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-swimming",
+      "type": "event",
+      "source": "poi-category-sfx/school",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "swimming"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-taxi",
+      "type": "event",
+      "source": "poi-category-sfx/car",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "taxi"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-toll",
+      "type": "event",
+      "source": "poi-category-sfx/highway",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "toll"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-tunnel",
+      "type": "event",
+      "source": "poi-category-sfx/highway",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "tunnel"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-watch",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "watch"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-industry",
+      "type": "event",
+      "source": "poi-category-sfx/industrial",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "industry"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-ice-cream",
+      "type": "event",
+      "source": "poi-category-sfx/restaurant",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "ice-cream"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-hospital",
+      "type": "event",
+      "source": "poi-category-sfx/college-library",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "hospital"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-globe",
+      "type": "event",
+      "source": "poi-category-sfx/monument",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "globe"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-station",
+      "type": "event",
+      "source": "poi-category-sfx/station",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          [
+            "get",
+            "group"
+          ],
+          "transit"
+        ],
+        [
+          "in",
+          "rail",
+          [
+            "downcase",
+            [
+              "to-string",
+              [
+                "get",
+                "transit_mode"
+              ]
+            ]
+          ]
+        ]
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "poi-ping-bus-stop",
+      "type": "event",
+      "source": "poi-category-sfx/bus-stop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "all",
+        [
+          "==",
+          [
+            "get",
+            "group"
+          ],
+          "transit"
+        ],
+        [
+          "!",
+          [
+            "in",
+            "rail",
+            [
+              "downcase",
+              [
+                "to-string",
+                [
+                  "get",
+                  "transit_mode"
+                ]
+              ]
+            ]
+          ]
+        ]
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "flyto-whoosh",
+      "type": "event",
+      "source": "flyto-sfx",
+      "filter": [
+        "==",
+        [
+          "get",
+          "animationKind"
+        ],
+        "flyTo"
+      ],
+      "layout": {
+        "sound-trigger": "movestart"
+      },
+      "paint": {
+        "sound-volume": 0.6
+      }
+    },
+    {
+      "id": "ease-glide",
+      "type": "event",
+      "source": "ease-glide-sfx",
+      "filter": [
+        "==",
+        [
+          "get",
+          "animationKind"
+        ],
+        "easeTo"
+      ],
+      "layout": {
+        "sound-trigger": "movestart"
+      },
+      "paint": {
+        "sound-volume": 0.75
+      }
+    },
+    {
+      "id": "jump-teleport",
+      "type": "event",
+      "source": "jump-teleport-sfx",
+      "filter": [
+        "==",
+        [
+          "get",
+          "animationKind"
+        ],
+        "jumpTo"
+      ],
+      "layout": {
+        "sound-trigger": "movestart"
+      },
+      "paint": {
+        "sound-volume": 0.6
+      }
+    }
+  ],
+  "bgm-priority-groups": [
+    {
+      "id": "area-bgm-priority",
+      "dimensions": {
+        "zoom": {
+          "kind": "zoom"
+        },
+        "terrain": {
+          "kind": "query",
+          "target-layer": [
+            "terrain-query-water",
+            "terrain-query-landuse",
+            "terrain-query-landcover"
+          ],
+          "property": [
+            "case",
+            [
+              "!",
+              [
+                "has",
+                "class"
+              ]
+            ],
+            "sea",
+            [
+              "==",
+              [
+                "get",
+                "class"
+              ],
+              "sand"
+            ],
+            "desert",
+            [
+              "==",
+              [
+                "get",
+                "class"
+              ],
+              "wood"
+            ],
+            "forest",
+            [
+              "in",
+              [
+                "get",
+                "class"
+              ],
+              [
+                "literal",
+                [
+                  "residential",
+                  "commercial_area",
+                  "industrial"
+                ]
+              ]
+            ],
+            "urban",
+            ""
+          ]
+        },
+        "country": {
+          "kind": "query",
+          "target-layer": "country-query",
+          "property": "iso_3166_1"
+        },
+        "lightPreset": {
+          "kind": "config-property",
+          "scope": "basemap",
+          "config-property": "lightPreset"
+        }
+      },
+      "tiers": [
+        {
+          "layer": "world-view-bgm-override",
+          "match": {
+            "zoom": {
+              "lte": 2
+            }
+          },
+          "state": "world"
+        },
+        {
+          "layer": "country-light-terrain-bgm-override-urban",
+          "match": {
+            "country": "JP",
+            "terrain": "urban",
+            "lightPreset": "night"
+          },
+          "state": "jp-urban-night"
+        },
+        {
+          "layer": "country-light-terrain-bgm-override-forest",
+          "match": {
+            "country": "JP",
+            "terrain": "forest",
+            "lightPreset": "night"
+          },
+          "state": "jp-forest-night"
+        },
+        {
+          "layer": "light-terrain-bgm-override",
+          "match": {
+            "terrain": "forest",
+            "lightPreset": "night"
+          },
+          "state": "night-forest"
+        },
+        {
+          "layer": "country-bgm-override",
+          "match": {
+            "country": "JP",
+            "terrain": "forest"
+          },
+          "state": "jp-forest"
+        },
+        {
+          "layer": "country-bgm-override-urban",
+          "match": {
+            "country": "JP",
+            "terrain": "urban"
+          },
+          "state": "jp-urban"
+        },
+        {
+          "layer": "country-bgm-override-gb",
+          "match": {
+            "country": "GB",
+            "terrain": "urban"
+          },
+          "state": "gb-urban"
+        },
+        {
+          "layer": "area-bgm-switch-urban",
+          "match": {
+            "terrain": "urban"
+          },
+          "state": "urban"
+        },
+        {
+          "layer": "area-bgm-switch-sea",
+          "match": {
+            "terrain": "sea"
+          },
+          "state": "sea"
+        },
+        {
+          "layer": "area-bgm-switch-desert",
+          "match": {
+            "terrain": "desert"
+          },
+          "state": "desert"
+        },
+        {
+          "layer": "area-bgm-switch-forest",
+          "match": {
+            "terrain": "forest"
+          },
+          "state": "forest"
+        }
+      ]
+    }
+  ],
+  "proximity-trigger-groups": [
+    {
+      "id": "poi-proximity",
+      "sources": [
+        {
+          "kind": "property",
+          "target-layer": "poi-symbols",
+          "property": "category"
+        },
+        {
+          "kind": "layer-prefix",
+          "target-featureset": {
+            "featuresetId": "poi",
+            "importId": "basemap"
+          }
+        }
+      ],
+      "radius-meters": 500,
+      "layer-prefix": "poi-ping-",
+      "max-per-tick": 3,
+      "stagger-ms": 400,
+      "max-concurrent": 4,
+      "category-cooldown-ms": 8000,
+      "once-only": true,
+      "minzoom": 11
+    }
+  ]
+}

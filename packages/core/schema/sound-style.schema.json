@@ -1,0 +1,321 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/sound-style.schema.json",
+  "title": "SoundStyleSpecification",
+  "type": "object",
+  "required": ["version", "sources", "sound-layers"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "const": 1 },
+    "name": { "type": "string" },
+    "sources": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/definitions/SoundSource" }
+    },
+    "sound-layers": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/SoundLayer" }
+    },
+    "bgm-priority-groups": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/BgmPriorityGroup" }
+    },
+    "proximity-trigger-groups": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/ProximityTriggerGroup" }
+    }
+  },
+  "definitions": {
+    "Expression": {
+      "type": "array",
+      "minItems": 1
+    },
+    "PropertyValue": {
+      "description": "定数値、または Mapbox Expression 配列",
+      "anyOf": [
+        { "type": ["number", "string", "boolean"] },
+        { "$ref": "#/definitions/Expression" }
+      ]
+    },
+    "TargetLayer": {
+      "description": "対象レイヤーID、または優先順位付きレイヤーID配列",
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+      ]
+    },
+    "TargetFeaturesetSpecification": {
+      "type": "object",
+      "required": ["featuresetId"],
+      "additionalProperties": false,
+      "properties": {
+        "featuresetId": { "type": "string" },
+        "importId": { "type": "string" }
+      }
+    },
+    "StateProperty": {
+      "description": "生のフィーチャープロパティ名、またはstateKeyを算出するMapbox Expression",
+      "oneOf": [
+        { "type": "string" },
+        { "$ref": "#/definitions/Expression" }
+      ]
+    },
+    "SoundSource": {
+      "oneOf": [
+        { "$ref": "#/definitions/SingleSoundSource" },
+        { "$ref": "#/definitions/AudioSpriteSoundSource" }
+      ]
+    },
+    "AssetLoadStrategy": { "enum": ["preload", "lazy"] },
+    "SingleSoundSource": {
+      "type": "object",
+      "required": ["type", "url"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "single" },
+        "url": { "type": "string" },
+        "loop": { "type": "boolean" },
+        "streaming": { "type": "boolean" },
+        "load-strategy": { "$ref": "#/definitions/AssetLoadStrategy" },
+        "attribution": { "type": "string" }
+      },
+      "if": {
+        "not": { "properties": { "streaming": { "const": true } } }
+      },
+      "then": {
+        "not": { "required": ["load-strategy"] }
+      }
+    },
+    "AudioSpriteSoundSource": {
+      "type": "object",
+      "required": ["type", "url", "sprite"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "audio-sprite" },
+        "url": { "type": "string" },
+        "sprite": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/definitions/AudioSpriteClipDefinition" }
+        },
+        "attribution": { "type": "string" }
+      }
+    },
+    "AudioSpriteClipDefinition": {
+      "type": "object",
+      "required": ["start", "end"],
+      "additionalProperties": false,
+      "properties": {
+        "start": { "type": "number", "minimum": 0 },
+        "end": { "type": "number", "minimum": 0 },
+        "loop": { "type": "boolean" },
+        "gain": { "type": "number" }
+      }
+    },
+    "SoundLayerPaint": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sound-volume": { "$ref": "#/definitions/PropertyValue" },
+        "sound-pitch": { "$ref": "#/definitions/PropertyValue" },
+        "sound-pan": { "$ref": "#/definitions/PropertyValue" },
+        "sound-lowpass": { "$ref": "#/definitions/PropertyValue" },
+        "sound-fade-duration": { "$ref": "#/definitions/PropertyValue" }
+      }
+    },
+    "SoundLayer": {
+      "oneOf": [
+        { "$ref": "#/definitions/EventSoundLayer" },
+        { "$ref": "#/definitions/AmbientSoundLayer" },
+        { "$ref": "#/definitions/BgmStateSoundLayer" }
+      ]
+    },
+    "EventSoundLayer": {
+      "type": "object",
+      "required": ["id", "type", "source", "layout"],
+      "additionalProperties": false,
+      "not": { "required": ["target-layer", "target-featureset"] },
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "const": "event" },
+        "source": { "type": "string" },
+        "sound-clip": { "type": "string" },
+        "target-layer": { "$ref": "#/definitions/TargetLayer" },
+        "target-featureset": { "$ref": "#/definitions/TargetFeaturesetSpecification" },
+        "filter": { "$ref": "#/definitions/Expression" },
+        "minzoom": { "type": "number" },
+        "maxzoom": { "type": "number" },
+        "layout": {
+          "type": "object",
+          "required": ["sound-trigger"],
+          "additionalProperties": false,
+          "properties": {
+            "sound-visibility": { "enum": ["visible", "none"] },
+            "sound-trigger": {
+              "enum": ["click", "mouseenter", "mouseleave", "zoom-in", "zoom-out", "always", "movestart"]
+            },
+            "sound-debounce": { "type": "number", "minimum": 0 }
+          }
+        },
+        "paint": { "$ref": "#/definitions/SoundLayerPaint" }
+      }
+    },
+    "AmbientSoundLayer": {
+      "type": "object",
+      "required": ["id", "type", "source"],
+      "additionalProperties": false,
+      "not": { "required": ["target-layer", "target-featureset"] },
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "const": "ambient" },
+        "source": { "type": "string" },
+        "sound-clip": { "type": "string" },
+        "target-layer": { "$ref": "#/definitions/TargetLayer" },
+        "target-featureset": { "$ref": "#/definitions/TargetFeaturesetSpecification" },
+        "filter": { "$ref": "#/definitions/Expression" },
+        "minzoom": { "type": "number" },
+        "maxzoom": { "type": "number" },
+        "layout": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "sound-visibility": { "enum": ["visible", "none"] },
+            "sound-loop": { "type": "boolean" },
+            "sound-update-interval": { "type": "number", "minimum": 0 }
+          }
+        },
+        "paint": { "$ref": "#/definitions/SoundLayerPaint" }
+      }
+    },
+    "BgmStateSoundLayer": {
+      "type": "object",
+      "required": ["id", "type", "source", "layout"],
+      "additionalProperties": false,
+      "not": { "required": ["target-layer", "target-featureset"] },
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "const": "bgm-state" },
+        "source": { "type": "string" },
+        "sound-clip": { "type": "string" },
+        "target-layer": { "$ref": "#/definitions/TargetLayer" },
+        "target-featureset": { "$ref": "#/definitions/TargetFeaturesetSpecification" },
+        "filter": { "$ref": "#/definitions/Expression" },
+        "minzoom": { "type": "number" },
+        "maxzoom": { "type": "number" },
+        "layout": {
+          "type": "object",
+          "required": ["sound-state-property"],
+          "additionalProperties": false,
+          "properties": {
+            "sound-visibility": { "enum": ["visible", "none"] },
+            "sound-state-property": { "$ref": "#/definitions/StateProperty" },
+            "sound-allow-silence": { "type": "boolean" }
+          }
+        },
+        "paint": { "$ref": "#/definitions/SoundLayerPaint" }
+      }
+    },
+    "BgmPriorityDimension": {
+      "type": "object",
+      "required": ["kind"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "enum": ["query", "zoom", "config-property"] },
+        "target-layer": { "$ref": "#/definitions/TargetLayer" },
+        "target-featureset": { "$ref": "#/definitions/TargetFeaturesetSpecification" },
+        "filter": { "$ref": "#/definitions/Expression" },
+        "property": { "$ref": "#/definitions/StateProperty" },
+        "scope": { "type": "string" },
+        "config-property": { "type": "string" }
+      }
+    },
+    "BgmPriorityTierMatchValue": {
+      "oneOf": [
+        { "type": "string" },
+        {
+          "type": "object",
+          "required": ["lte"],
+          "additionalProperties": false,
+          "properties": { "lte": { "type": "number" } }
+        },
+        {
+          "type": "object",
+          "required": ["gte"],
+          "additionalProperties": false,
+          "properties": { "gte": { "type": "number" } }
+        }
+      ]
+    },
+    "BgmPriorityTier": {
+      "type": "object",
+      "required": ["layer", "state"],
+      "additionalProperties": false,
+      "properties": {
+        "layer": { "type": "string" },
+        "match": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/definitions/BgmPriorityTierMatchValue" }
+        },
+        "state": {
+          "oneOf": [
+            { "type": "string" },
+            {
+              "type": "object",
+              "required": ["from-dimension"],
+              "additionalProperties": false,
+              "properties": { "from-dimension": { "type": "string" } }
+            }
+          ]
+        }
+      }
+    },
+    "BgmPriorityGroup": {
+      "type": "object",
+      "required": ["id", "dimensions", "tiers"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "dimensions": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/definitions/BgmPriorityDimension" }
+        },
+        "tiers": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/BgmPriorityTier" }
+        }
+      }
+    },
+    "ProximitySource": {
+      "type": "object",
+      "required": ["kind"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "enum": ["property", "layer-prefix"] },
+        "target-layer": { "$ref": "#/definitions/TargetLayer" },
+        "target-featureset": { "$ref": "#/definitions/TargetFeaturesetSpecification" },
+        "filter": { "$ref": "#/definitions/Expression" },
+        "property": { "$ref": "#/definitions/StateProperty" }
+      }
+    },
+    "ProximityTriggerGroup": {
+      "type": "object",
+      "required": ["id", "sources", "radius-meters", "layer-prefix"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "sources": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/ProximitySource" }
+        },
+        "radius-meters": { "type": "number", "minimum": 0 },
+        "layer-prefix": { "type": "string" },
+        "max-per-tick": { "type": "number", "minimum": 0 },
+        "stagger-ms": { "type": "number", "minimum": 0 },
+        "once-only": { "type": "boolean" },
+        "minzoom": { "type": "number" },
+        "maxzoom": { "type": "number" },
+        "max-concurrent": { "type": "number", "minimum": 0 },
+        "category-cooldown-ms": { "type": "number", "minimum": 0 }
+      }
+    }
+  }
+}

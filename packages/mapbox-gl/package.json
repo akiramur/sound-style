@@ -1,0 +1,45 @@
+{
+  "name": "@sound-style/mapbox-gl",
+  "version": "0.0.0",
+  "description": "Mapbox GL JS binding for @sound-style/core: wires map events into the sound engine.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akiramur/sound-style.git",
+    "directory": "packages/mapbox-gl"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@mapbox/mapbox-gl-style-spec": "catalog:",
+    "@sound-style/core": "workspace:*"
+  },
+  "peerDependencies": {
+    "mapbox-gl": "catalog:"
+  },
+  "devDependencies": {
+    "@types/geojson": "catalog:",
+    "mapbox-gl": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "@sound-style/example-vanilla",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@sound-style/core": "workspace:*",
+    "@sound-style/mapbox-gl": "workspace:*",
+    "mapbox-gl": "catalog:"
+  },
+  "devDependencies": {
+    "@types/geojson": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:"
+  }
+}

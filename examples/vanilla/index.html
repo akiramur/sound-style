@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sound-style demo</title>
+    <style>
+      html, body, #map { height: 100%; margin: 0; }
+      #panel {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        z-index: 1;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 12px 16px;
+        border-radius: 8px;
+        font-family: system-ui, sans-serif;
+        max-width: 320px;
+      }
+      #panel button { font-size: 14px; padding: 6px 12px; }
+      #panel p { font-size: 13px; line-height: 1.5; margin: 8px 0 0; }
+      #volume-row { display: none; align-items: center; gap: 8px; margin-top: 10px; font-size: 13px; }
+      #volume-row input { flex: 1; }
+      #category-toggle-row { display: none; flex-direction: column; gap: 6px; margin-top: 10px; font-size: 13px; }
+      #category-toggle-row label { display: flex; align-items: center; gap: 4px; }
+      #category-toggle-row .category-group { display: flex; align-items: center; gap: 12px; }
+      #category-toggle-row .sub-toggles { display: flex; flex-wrap: wrap; gap: 6px 10px; padding-left: 18px; font-size: 12px; color: #555; }
+      #light-preset-row { display: none; align-items: center; gap: 8px; margin-top: 10px; font-size: 13px; }
+      #light-preset-row select { flex: 1; }
+      #flyto-row { display: none; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 10px; font-size: 13px; }
+      #flyto-row select { flex: 1 1 100%; }
+      #flyto-row button { flex: 1; }
+      #gmt-time-row { display: none; align-items: center; gap: 8px; margin-top: 10px; font-size: 13px; }
+      #gmt-time-row input { flex: 1; }
+      #once-only-row { display: none; align-items: center; gap: 8px; margin-top: 10px; font-size: 13px; }
+      #once-only-row label { flex: 1; }
+      #debug-panel {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        z-index: 1;
+        background: rgba(0, 0, 0, 0.65);
+        color: #fff;
+        font-family: ui-monospace, monospace;
+        font-size: 12px;
+        padding: 4px 8px;
+        border-radius: 4px;
+        pointer-events: none;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        white-space: nowrap;
+      }
+      #now-playing-list {
+        list-style: none;
+        margin: 2px 0 0;
+        padding: 0;
+      }
+      #now-playing-list li {
+        color: #66bb6a;
+      }
+      .sound-style-attrib {
+        position: relative;
+        display: flex;
+        align-items: center;
+        background-color: #ffffff80;
+        font: 12px/20px "Helvetica Neue", Arial, Helvetica, sans-serif;
+        border-radius: 12px;
+      }
+      .sound-style-attrib--open {
+        border-radius: 0;
+      }
+      .sound-style-attrib-toggle {
+        width: 24px;
+        height: 24px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font-size: 14px;
+        border-radius: 12px;
+      }
+      .sound-style-attrib--open .sound-style-attrib-toggle {
+        display: none;
+      }
+      .sound-style-attrib-panel {
+        display: none;
+        position: relative;
+        padding: 4px 22px 4px 8px;
+        max-width: 260px;
+      }
+      .sound-style-attrib--open .sound-style-attrib-panel {
+        display: block;
+      }
+      .sound-style-attrib-close {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        width: 18px;
+        height: 18px;
+        padding: 0;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font-size: 11px;
+        line-height: 1;
+        color: #000000bf;
+      }
+      .sound-style-attrib-close:hover {
+        color: inherit;
+      }
+      .sound-style-attrib-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        white-space: normal;
+      }
+      .sound-style-attrib-list li {
+        margin: 2px 0;
+      }
+      .sound-style-attrib-list a {
+        color: #000000bf;
+        text-decoration: none;
+      }
+      .sound-style-attrib-list a:hover {
+        color: inherit;
+        text-decoration: underline;
+      }
+      /* The circle itself is drawn as a map layer (detection-circle-fill, added in
+         addDemoLayers/updateDetectionCircleSize) so it stacks below the recent-poi-sfx annotation
+         layers instead of always sitting on top of the whole map like an HTML overlay would. Only
+         the text label stays as a DOM overlay; its vertical offset is recomputed by
+         updateDetectionCircleSize to stay just above the circle's on-screen top edge. */
+      #detection-label {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -100%);
+        font-family: ui-monospace, monospace;
+        font-size: 11px;
+        color: #fff;
+        background: rgba(255, 23, 68, 0.9);
+        padding: 1px 6px;
+        border-radius: 3px;
+        white-space: nowrap;
+        z-index: 5;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="detection-label">POI detection range (radius 500m)</div>
+    <div id="debug-panel">
+      <div id="debug-coords">lng: -, lat: -, zoom: -</div>
+      <div id="debug-terrain">terrain: -</div>
+      <div id="debug-country">country: -</div>
+      <div id="debug-local-time">local time: -</div>
+      <div>playing:</div>
+      <ul id="now-playing-list"><li>-</li></ul>
+    </div>
+    <div id="panel">
+      <button id="enable-audio" type="button">Enable audio</button>
+      <p id="status">
+        Click to start sound-style. Click a POI to hear an SE, get near traffic for an ambient effect, and move between areas to switch the BGM.
+      </p>
+      <div id="volume-row">
+        <label for="master-volume">Master volume</label>
+        <input id="master-volume" type="range" min="0" max="1" step="0.01" value="0.6" />
+      </div>
+      <div id="category-toggle-row">
+        <div class="category-group">
+          <label><input id="category-toggle-bgm" type="checkbox" checked /> BGM</label>
+        </div>
+        <div class="category-group"><span>SE</span></div>
+        <div class="sub-toggles">
+          <label><input id="se-poi-toggle" type="checkbox" checked /> POI</label>
+          <label><input id="se-traffic-toggle" type="checkbox" checked /> Traffic</label>
+          <label><input id="se-daynight-toggle" type="checkbox" checked /> Light preset</label>
+          <label><input id="se-moveto-toggle" type="checkbox" checked /> Move to</label>
+        </div>
+        <div class="category-group"><span>Ambient</span></div>
+        <div class="sub-toggles">
+          <label><input id="weather-rain-toggle" type="checkbox" /> Rain</label>
+          <label><input id="weather-storm-toggle" type="checkbox" /> Storm</label>
+        </div>
+      </div>
+      <div id="light-preset-row">
+        <label for="light-preset">Light preset</label>
+        <select id="light-preset">
+          <option value="dawn">dawn</option>
+          <option value="day" selected>day</option>
+          <option value="dusk">dusk</option>
+          <option value="night">night</option>
+        </select>
+      </div>
+      <div id="gmt-time-row">
+        <label for="gmt-time-input">GMT time</label>
+        <input id="gmt-time-input" type="time" step="60" />
+        <button id="gmt-time-now" type="button">now</button>
+      </div>
+      <div id="flyto-row">
+        <label for="flyto-city">Move to</label>
+        <select id="flyto-city">
+          <option value="" selected disabled>Select a city...</option>
+          <option value="sf">San Francisco</option>
+          <option value="dc">Washington, D.C.</option>
+          <option value="nyc">New York</option>
+          <option value="saopaulo">São Paulo</option>
+          <option value="london">London</option>
+          <option value="paris">Paris</option>
+          <option value="berlin">Berlin</option>
+          <option value="helsinki">Helsinki</option>
+          <option value="cairo">Cairo</option>
+          <option value="minsk">Minsk</option>
+          <option value="delhi">Delhi</option>
+          <option value="beijing">Beijing</option>
+          <option value="tokyo">Tokyo</option>
+          <option value="sydney">Sydney</option>
+        </select>
+        <button id="flyto-flyTo" type="button">flyTo (arc)</button>
+        <button id="flyto-easeTo" type="button">easeTo (straight)</button>
+        <button id="flyto-jumpTo" type="button">jumpTo (instant)</button>
+      </div>
+      <div id="once-only-row">
+        <label for="once-only-toggle">Play each POI only once</label>
+        <input id="once-only-toggle" type="checkbox" checked />
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
