@@ -1,7 +1,9 @@
 # @sound-style/core
 
 A framework-agnostic, declarative sound engine for the Web Audio API. It has no dependency on
-Mapbox GL JS (map integration is handled by [`@sound-style/mapbox-gl`](../mapbox-gl)).
+Mapbox GL JS itself — no map instance is required (map integration is handled by
+[`@sound-style/mapbox-gl`](../mapbox-gl)) — though see **Third-party licenses** below regarding
+its Expression-evaluation dependency.
 
 _日本語版: [README-ja.md](./README-ja.md)_
 
@@ -78,3 +80,13 @@ Type definitions live in [`src/types.ts`](./src/types.ts), and the JSON Schema (
 | `AssetManager` | Fetches/decodes/caches audio sources and resolves audio-sprite clip ranges (streams BGM via `<audio>` elements instead of fully decoding them) |
 | `ExpressionEvaluator` | Compiles and evaluates Mapbox Expressions (`interpolate`/`match`/`get`/etc.) |
 | `validateSoundStyle()` | Validates a `sound-style.json` document against the schema |
+
+## Third-party licenses
+
+This package (`@sound-style/core` itself) is MIT-licensed, but it depends directly on
+[`@mapbox/mapbox-gl-style-spec`](https://www.npmjs.com/package/@mapbox/mapbox-gl-style-spec) for
+Expression compilation/evaluation. That package is **not MIT** — it's licensed under the
+[Mapbox TOS](https://www.mapbox.com/legal/tos/), which requires a current, active Mapbox account
+in good standing. Installing `@sound-style/core` pulls this dependency in transitively, so using it
+means you're also subject to the Mapbox TOS for that portion of the dependency tree — even though
+you never call any Mapbox GL JS map API directly.

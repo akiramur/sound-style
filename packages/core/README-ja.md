@@ -1,7 +1,9 @@
 # @sound-style/core
 
 Web Audio APIを操作する、フレームワーク非依存の宣言的音響エンジンです。
-Mapbox GL JSには依存しません（GL JSとの連携は [`@sound-style/mapbox-gl`](../mapbox-gl) が担当します）。
+Mapbox GL JS自体には依存しません（地図インスタンスは不要——GL JSとの連携は
+[`@sound-style/mapbox-gl`](../mapbox-gl) が担当します）。ただしExpression評価の依存関係については
+下記「サードパーティライセンス」を参照してください。
 
 _English: [README.md](./README.md)_
 
@@ -77,3 +79,12 @@ Mapbox GL JSのマップイベントと自動連携させたい場合は [`@soun
 | `AssetManager` | 音源のfetch/decode/キャッシュ、audio-spriteのクリップ範囲解決（BGMは`<audio>`要素で全体デコードせずストリーミング再生） |
 | `ExpressionEvaluator` | Mapbox Expression（`interpolate`/`match`/`get`等）のコンパイル・評価 |
 | `validateSoundStyle()` | `sound-style.json` のスキーマ検証 |
+
+## サードパーティライセンス
+
+このパッケージ（`@sound-style/core`自体）はMITライセンスですが、Expressionのコンパイル・評価に
+[`@mapbox/mapbox-gl-style-spec`](https://www.npmjs.com/package/@mapbox/mapbox-gl-style-spec)を
+直接依存として使用しています。このパッケージは**MITではなく**、有効なMapboxアカウントを保有して
+いることを条件とする[Mapbox TOS](https://www.mapbox.com/legal/tos/)の下でライセンスされています。
+`@sound-style/core`をインストールするとこの依存関係が推移的に入るため、Mapbox GL JSのマップAPIを
+一度も直接呼び出さない場合でも、この部分についてはMapbox TOSの対象になります。

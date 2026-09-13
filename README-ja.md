@@ -57,6 +57,10 @@ pnpm typecheck   # 型チェック
 sound-styleは個人による独立したプロジェクトです。Mapboxと提携・公認された、あるいはMapboxが
 公式にサポートするものではありません。「Mapbox」および「Mapbox GL JS」はMapbox, Inc.の商標です。
 
+このプロジェクト自体はMITライセンスですが、`@sound-style/core`は`@mapbox/mapbox-gl-style-spec`に
+直接依存しており、これはMITではなくMapbox TOSの下でライセンスされています。詳細は
+[`packages/core`のREADME](./packages/core/README-ja.md#サードパーティライセンス)を参照してください。
+
 ## ライセンス
 
 [MIT](./LICENSE)

@@ -58,6 +58,10 @@ See [`examples/vanilla/README.md`](./examples/vanilla/README.md) to run the exam
 sound-style is an independent personal project. It is not affiliated with, endorsed by, or
 officially supported by Mapbox. "Mapbox" and "Mapbox GL JS" are trademarks of Mapbox, Inc.
 
+While this project itself is MIT-licensed, `@sound-style/core` depends directly on
+`@mapbox/mapbox-gl-style-spec`, which is licensed under the Mapbox TOS rather than MIT — see
+[`packages/core`'s README](./packages/core/README.md#third-party-licenses) for details.
+
 ## License
 
 [MIT](./LICENSE)
