@@ -306,4 +306,95 @@ describe('AssetManager (streaming sources)', () => {
     expect(manager.getStreamingHandle('bgm')).toBeUndefined();
     expect(manager.getLoadState('bgm')).toBe('idle');
   });
+
+  // Regression test: unload() used to just drop the entry from the Map without releasing its
+  // streaming handle, unlike clear() — leaking the <audio> element and its
+  // MediaElementAudioSourceNode whenever unload() was called on a streaming source.
+  it('releases the HTMLAudioElement on unload()', async () => {
+    const { audioContext, createMediaElementSource } = fakeAudioContext();
+    const manager = new AssetManager({ audioContext });
+    const source: SingleSoundSource = { type: 'single', url: '/audio/bgm.mp3', streaming: true };
+
+    manager.register('bgm', source);
+    await manager.ensureLoaded('bgm');
+    const sourceNode = createMediaElementSource.mock.results[0]?.value as { disconnect: ReturnType<typeof vi.fn> };
+
+    manager.unload('bgm');
+
+    expect(manager.getStreamingHandle('bgm')).toBeUndefined();
+    expect(sourceNode.disconnect).toHaveBeenCalled();
+  });
+
+  // Regression test: a streaming load resolving (canplaythrough) after a clear()/unload() already
+  // ran while it was still in flight (e.g. a style switch racing a still-loading BGM) used to
+  // assign the loaded handle onto an entry object that was no longer reachable from `entries`,
+  // permanently leaking the <audio> element (it was never appended to a map that anything would
+  // later release). The fix detects this staleness and releases the orphaned element instead.
+  it('releases an orphaned <audio> element when clear() races an in-flight streaming load', async () => {
+    class ManualFakeAudio {
+      crossOrigin = '';
+      loop = false;
+      preload = '';
+      src = '';
+      duration = 5;
+      error: unknown = null;
+      pause = vi.fn();
+      removeAttribute = vi.fn();
+      private listeners = new Map<string, Set<() => void>>();
+
+      addEventListener(type: string, listener: () => void): void {
+        let set = this.listeners.get(type);
+        if (!set) {
+          set = new Set();
+          this.listeners.set(type, set);
+        }
+        set.add(listener);
+      }
+
+      removeEventListener(type: string, listener: () => void): void {
+        this.listeners.get(type)?.delete(listener);
+      }
+
+      load(): void {
+        // Deliberately does not auto-fire — the test triggers canplaythrough manually so it can
+        // run clear() in between register() and the load settling.
+      }
+
+      fireCanPlayThrough(): void {
+        for (const listener of [...(this.listeners.get('canplaythrough') ?? [])]) {
+          listener();
+        }
+      }
+    }
+
+    const instances: ManualFakeAudio[] = [];
+    vi.stubGlobal(
+      'Audio',
+      class extends ManualFakeAudio {
+        constructor() {
+          super();
+          instances.push(this);
+        }
+      },
+    );
+
+    const { audioContext, createMediaElementSource } = fakeAudioContext();
+    const manager = new AssetManager({ audioContext });
+    const source: SingleSoundSource = { type: 'single', url: '/audio/bgm.mp3', streaming: true };
+
+    manager.register('bgm', source);
+    const loadPromise = manager.ensureLoaded('bgm');
+
+    // A style switch (or unload()) races the still-in-flight load.
+    manager.clear();
+
+    // The in-flight load now settles, after its entry has already been dropped.
+    instances[0]?.fireCanPlayThrough();
+    await loadPromise;
+
+    expect(manager.getStreamingHandle('bgm')).toBeUndefined();
+    const sourceNode = createMediaElementSource.mock.results[0]?.value as { disconnect: ReturnType<typeof vi.fn> };
+    expect(sourceNode.disconnect).toHaveBeenCalled();
+    expect(instances[0]?.pause).toHaveBeenCalled();
+  });
 });

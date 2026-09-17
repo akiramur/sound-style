@@ -130,11 +130,13 @@ function createFakeEngine(
 ) {
   const layerMap = new Map(layers.map((layer) => [layer.id, layer]));
   const eventListeners = new Map<string, Set<(event: unknown) => void>>();
+  let enabled = true;
   return {
     getLayerIds: () => Array.from(layerMap.keys()),
     getLayer: (id: string) => layerMap.get(id),
     getBgmPriorityGroups: () => bgmPriorityGroups,
     getProximityTriggerGroups: () => proximityTriggerGroups,
+    getEnabled: () => enabled,
     trigger: vi.fn(),
     updateContext: vi.fn(),
     setActiveState: vi.fn(),
@@ -149,8 +151,11 @@ function createFakeEngine(
     off: (type: string, handler: (event: unknown) => void) => {
       eventListeners.get(type)?.delete(handler);
     },
-    /** Test-only helper: simulates the engine emitting layer:play/layer:stop (see max-concurrent tests). */
-    emit: (event: { type: string; layerId: string }) => {
+    /** Test-only helper: simulates the engine emitting layer:play/layer:stop/enabled-change. */
+    emit: (event: { type: string; layerId?: string; enabled?: boolean }) => {
+      if (event.type === 'enabled-change' && typeof event.enabled === 'boolean') {
+        enabled = event.enabled;
+      }
       for (const handler of eventListeners.get(event.type) ?? []) handler(event);
     },
   };
@@ -602,6 +607,101 @@ describe('MapboxSoundAdapter', () => {
     });
   });
 
+  describe('setSuspended', () => {
+    // Regression test: audio-mute UIs were only silencing the engine's output (setMasterVolume(0)),
+    // leaving the adapter's moveend/move/sourcedata listeners running and calling
+    // queryRenderedFeatures for no audible benefit. setSuspended lets the app actually stop that
+    // work while muted.
+    const layer: SoundLayerSpecification = {
+      id: 'traffic-ambient',
+      type: 'ambient',
+      source: 'traffic-noise',
+      'target-layer': 'traffic-lines',
+    };
+
+    it('stops moveend/move/sourcedata re-evaluation (and its queryRenderedFeatures call) while suspended', () => {
+      const fakeMap = createFakeMap();
+      const engine = createFakeEngine([layer]);
+      fakeMap.queryRenderedFeatures.mockReturnValue([{ properties: { congestion: 'severe' } }]);
+
+      const adapter = new MapboxSoundAdapter(fakeMap.map, engine as unknown as SoundStyleEngine);
+      expect(fakeMap.queryRenderedFeatures).toHaveBeenCalledTimes(1);
+
+      adapter.setSuspended(true);
+      fakeMap.fire('moveend');
+      fakeMap.fire('sourcedata', { sourceDataType: 'content', sourceId: 'traffic-lines' });
+      expect(fakeMap.queryRenderedFeatures).toHaveBeenCalledTimes(1);
+    });
+
+    it('resyncs immediately on unsuspend, picking up whatever changed while suspended', () => {
+      const fakeMap = createFakeMap();
+      const engine = createFakeEngine([layer]);
+      fakeMap.queryRenderedFeatures.mockReturnValue([{ properties: { congestion: 'low' } }]);
+
+      const adapter = new MapboxSoundAdapter(fakeMap.map, engine as unknown as SoundStyleEngine);
+      adapter.setSuspended(true);
+      fakeMap.fire('moveend');
+      expect(fakeMap.queryRenderedFeatures).toHaveBeenCalledTimes(1);
+
+      fakeMap.queryRenderedFeatures.mockReturnValue([{ properties: { congestion: 'severe' } }]);
+      adapter.setSuspended(false);
+
+      expect(fakeMap.queryRenderedFeatures).toHaveBeenCalledTimes(2);
+      expect(engine.updateContext).toHaveBeenLastCalledWith('traffic-ambient', {
+        zoom: 10,
+        feature: { properties: { congestion: 'severe' } },
+      });
+    });
+
+    it('is a no-op when set to its current value (does not resync redundantly)', () => {
+      const fakeMap = createFakeMap();
+      const engine = createFakeEngine([layer]);
+
+      const adapter = new MapboxSoundAdapter(fakeMap.map, engine as unknown as SoundStyleEngine);
+      expect(engine.updateContext).toHaveBeenCalledTimes(1);
+
+      adapter.setSuspended(false);
+      expect(engine.updateContext).toHaveBeenCalledTimes(1);
+    });
+
+    it("follows the engine's enabled-change event automatically, without an explicit setSuspended() call", () => {
+      const fakeMap = createFakeMap();
+      const engine = createFakeEngine([layer]);
+      fakeMap.queryRenderedFeatures.mockReturnValue([{ properties: { congestion: 'low' } }]);
+
+      new MapboxSoundAdapter(fakeMap.map, engine as unknown as SoundStyleEngine);
+      expect(fakeMap.queryRenderedFeatures).toHaveBeenCalledTimes(1);
+
+      engine.emit({ type: 'enabled-change', enabled: false });
+      fakeMap.fire('moveend');
+      expect(fakeMap.queryRenderedFeatures).toHaveBeenCalledTimes(1);
+
+      fakeMap.queryRenderedFeatures.mockReturnValue([{ properties: { congestion: 'severe' } }]);
+      engine.emit({ type: 'enabled-change', enabled: true });
+
+      expect(fakeMap.queryRenderedFeatures).toHaveBeenCalledTimes(2);
+      expect(engine.updateContext).toHaveBeenLastCalledWith('traffic-ambient', {
+        zoom: 10,
+        feature: { properties: { congestion: 'severe' } },
+      });
+    });
+
+    it('starts suspended when the engine is already disabled at construction time', () => {
+      const fakeMap = createFakeMap();
+      const engine = createFakeEngine([layer]);
+      engine.emit({ type: 'enabled-change', enabled: false });
+      fakeMap.queryRenderedFeatures.mockReturnValue([{ properties: { congestion: 'severe' } }]);
+
+      new MapboxSoundAdapter(fakeMap.map, engine as unknown as SoundStyleEngine);
+      // The initial, unconditional update() call still runs once (unaffected by suspended), but
+      // subsequent moveend-driven re-evaluation is already gated from the start.
+      expect(fakeMap.queryRenderedFeatures).toHaveBeenCalledTimes(1);
+
+      fakeMap.fire('moveend');
+      expect(fakeMap.queryRenderedFeatures).toHaveBeenCalledTimes(1);
+    });
+  });
+
   describe('bgm-state layers', () => {
     const layer: SoundLayerSpecification = {
       id: 'area-bgm-switch',
@@ -963,6 +1063,33 @@ describe('MapboxSoundAdapter', () => {
       fakeMap.fire('styledata', { dataType: 'style' });
 
       expect(engine.setActiveState).toHaveBeenLastCalledWith('world-bgm', 'night-variant', { zoom: 10 });
+    });
+
+    it('does not re-evaluate on a config-property styledata event while suspended', () => {
+      // Regression test: the config-property dimension's styledata listener used to call the raw
+      // update() directly instead of the suspend-aware wrapper bindReevaluate returns, so
+      // setSuspended(true) did not stop it — contradicting setSuspended's own contract.
+      const fakeMap = createFakeMap();
+      fakeMap.setZoom(10);
+      fakeMap.setConfigProperty('basemap', 'lightPreset', 'day');
+      const lightGroup: BgmPriorityGroup = {
+        id: 'light-priority',
+        dimensions: { lightPreset: { kind: 'config-property', scope: 'basemap', 'config-property': 'lightPreset' } },
+        tiers: [
+          { layer: 'world-bgm', match: { lightPreset: 'night' }, state: 'night-variant' },
+          { layer: 'area-bgm-switch', state: 'day-variant' },
+        ],
+      };
+      const engine = createFakeEngine(layers, [lightGroup]);
+
+      const adapter = new MapboxSoundAdapter(fakeMap.map, engine as unknown as SoundStyleEngine);
+      expect(engine.setActiveState).toHaveBeenLastCalledWith('area-bgm-switch', 'day-variant', { zoom: 10 });
+
+      adapter.setSuspended(true);
+      fakeMap.setConfigProperty('basemap', 'lightPreset', 'night');
+      fakeMap.fire('styledata', { dataType: 'style' });
+
+      expect(engine.setActiveState).toHaveBeenLastCalledWith('area-bgm-switch', 'day-variant', { zoom: 10 });
     });
   });
 
@@ -1390,6 +1517,43 @@ describe('MapboxSoundAdapter proximity-trigger-groups', () => {
       expect(engine.trigger).toHaveBeenCalledTimes(1);
       vi.advanceTimersByTime(400);
       expect(engine.trigger).toHaveBeenCalledTimes(2);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  // Regression test: destroy() unbound the map/engine event listeners but never cancelled a
+  // still-pending stagger-ms setTimeout, so a proximity trigger scheduled just before destroy()
+  // would still fire afterward — audible playback the app thought it had torn down.
+  it('cancels pending staggered triggers on destroy()', () => {
+    vi.useFakeTimers();
+    try {
+      const fakeMap = createFakeMap();
+      const shop = { id: 'a', properties: { category: 'shop' }, geometry: { type: 'Point', coordinates: [0.001, 0] } };
+      const food = { id: 'b', properties: { category: 'food' }, geometry: { type: 'Point', coordinates: [0.002, 0] } };
+      fakeMap.queryRenderedFeatures.mockReturnValue([shop, food]);
+      const engine = createFakeEngine([poiPingLayer('shop'), poiPingLayer('food')], [], [
+        {
+          id: 'poi-proximity',
+          sources: [{ kind: 'property', 'target-layer': 'poi-symbols', property: 'category' }],
+          'radius-meters': 500,
+          'layer-prefix': 'poi-ping-',
+          'stagger-ms': 400,
+        },
+      ]);
+
+      const adapter = new MapboxSoundAdapter(fakeMap.map, engine as unknown as SoundStyleEngine);
+
+      // The first (index 0, delay 0) candidate fires immediately; the second (index 1, delay
+      // 400ms) is still pending.
+      vi.advanceTimersByTime(0);
+      expect(engine.trigger).toHaveBeenCalledTimes(1);
+
+      adapter.destroy();
+      vi.advanceTimersByTime(400);
+
+      // The still-pending second candidate must not fire after destroy().
+      expect(engine.trigger).toHaveBeenCalledTimes(1);
     } finally {
       vi.useRealTimers();
     }

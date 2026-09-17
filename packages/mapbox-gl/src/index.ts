@@ -456,6 +456,9 @@ export class MapboxSoundAdapter {
   private readonly ensuredSourceIds: string[] = [];
   /** Setter used by setProximityOnceOnly(groupId, ...) to update a group-specific once-only override. */
   private readonly proximityOnceOnlySetters = new Map<string, (onceOnly: boolean) => void>();
+  /** Every bindReevaluate-driven update() (ambient/bgm-state/bgm-priority-group/proximity-trigger-group/event('always')), so setSuspended(false) can resync them all at once. */
+  private readonly reevaluateFns: Array<() => void> = [];
+  private suspended = false;
   private previousZoom: number;
 
   constructor(
@@ -468,6 +471,18 @@ export class MapboxSoundAdapter {
     this.options = options;
     this.previousZoom = map.getZoom();
     this.applyEnsureLayerOptions(options);
+
+    // Follows the engine's own enabled/disabled state (see SoundStyleEngine.setEnabled()), so an
+    // app only has to call that single method to both silence output and stop this adapter's
+    // now-pointless map-query work — instead of having to separately remember to call
+    // setSuspended() too. setSuspended() itself stays available for a caller that wants to pause
+    // this adapter's work without touching the engine's enabled state.
+    const onEnabledChange = (event: SoundStyleEngineEvent) => {
+      if (event.type === 'enabled-change') this.setSuspended(!event.enabled);
+    };
+    engine.on('enabled-change', onEnabledChange);
+    this.unbindFns.push(() => engine.off('enabled-change', onEnabledChange));
+    if (!engine.getEnabled()) this.suspended = true;
 
     const bgmPriorityGroups = engine.getBgmPriorityGroups();
     // The bgm-state layers pointed to by a bgm-priority-groups tier should have only that group's
@@ -538,12 +553,29 @@ export class MapboxSoundAdapter {
    * resolved (a target-featureset, or a layer not yet added), it doesn't narrow down and re-evaluates
    * on any sourcedata.
    */
-  private bindReevaluate(targetLayers: string[], update: () => void): void {
-    this.map.on('moveend', update);
-    this.unbindFns.push(() => this.map.off('moveend', update));
+  /**
+   * Returns the suspend-aware wrapper (`guardedUpdate`) it registered for moveend/move/sourcedata, so
+   * a caller with an extra re-evaluation trigger of its own (e.g. bindBgmPriorityGroup's styledata
+   * listener for config-property dimensions) can route through the same `suspended` gate instead of
+   * calling the raw `update` directly and bypassing it.
+   */
+  private bindReevaluate(targetLayers: string[], update: () => void): () => void {
+    this.reevaluateFns.push(update);
+    // Gates every moveend/move/sourcedata-triggered re-evaluation (and, through it, the
+    // queryRenderedFeatures/queryFeaturesWithinRadius call each update() makes) behind
+    // `suspended`, so setSuspended(true) (e.g. while audio is disabled) actually stops that work
+    // rather than just silencing its result further downstream. The initial `update()` call each
+    // binder makes right after this (unconditional, not through `guardedUpdate`) is unaffected,
+    // since the adapter is never suspended at construction time.
+    const guardedUpdate = () => {
+      if (this.suspended) return;
+      update();
+    };
+    this.map.on('moveend', guardedUpdate);
+    this.unbindFns.push(() => this.map.off('moveend', guardedUpdate));
     if (this.options.updateDuringMove) {
-      this.map.on('move', update);
-      this.unbindFns.push(() => this.map.off('move', update));
+      this.map.on('move', guardedUpdate);
+      this.unbindFns.push(() => this.map.off('move', guardedUpdate));
     }
 
     // Originally filtered to `sourceDataType === 'content'` only, to avoid reacting to unrelated
@@ -563,10 +595,11 @@ export class MapboxSoundAdapter {
       if (sourceIds.size > 0 && (!e.sourceId || !sourceIds.has(e.sourceId))) {
         return;
       }
-      update();
+      guardedUpdate();
     };
     this.map.on('sourcedata', handler);
     this.unbindFns.push(() => this.map.off('sourcedata', handler));
+    return guardedUpdate;
   }
 
   private bindEventLayer(layer: EventSoundLayer): void {
@@ -887,10 +920,13 @@ export class MapboxSoundAdapter {
       }
     };
 
-    this.bindReevaluate(targetLayers, update);
+    const guardedUpdate = this.bindReevaluate(targetLayers, update);
     if (hasConfigPropertyDimension) {
+      // Routed through guardedUpdate (not the raw `update`) so this extra trigger honors
+      // `suspended` too — a config-property change while suspended must not sneak past
+      // setSuspended(true) and re-run queryRenderedFeatures/setActiveState.
       const handler = (e: MapStyleDataEvent) => {
-        if (e.dataType === 'style') update();
+        if (e.dataType === 'style') guardedUpdate();
       };
       this.map.on('styledata', handler);
       this.unbindFns.push(() => this.map.off('styledata', handler));
@@ -1004,6 +1040,18 @@ export class MapboxSoundAdapter {
       this.engine.off('layer:stop', onLayerStop);
     });
 
+    // stagger-ms fires candidates via setTimeout (see `selected.forEach` below), which otherwise
+    // keeps running even after destroy() — an app tearing down the adapter (e.g. leaving a screen
+    // that used proximity-triggered ambience) could still hear a sound fire moments later. Tracked
+    // here so destroy() can cancel whatever hasn't fired yet.
+    const pendingStaggerTimers = new Set<ReturnType<typeof setTimeout>>();
+    this.unbindFns.push(() => {
+      for (const timer of pendingStaggerTimers) {
+        clearTimeout(timer);
+      }
+      pendingStaggerTimers.clear();
+    });
+
     // The denominator for category-cooldown-ms. Manages the re-fire interval per category, on a
     // separate axis from once-only (which is per feature).
     const lastFiredAtByCategory = new Map<string, number>();
@@ -1115,7 +1163,11 @@ export class MapboxSoundAdapter {
           );
         };
         if (staggerMs > 0) {
-          setTimeout(fire, index * staggerMs);
+          const timer = setTimeout(() => {
+            pendingStaggerTimers.delete(timer);
+            fire();
+          }, index * staggerMs);
+          pendingStaggerTimers.add(timer);
         } else {
           fire();
         }
@@ -1132,6 +1184,34 @@ export class MapboxSoundAdapter {
    */
   setProximityOnceOnly(groupId: string, onceOnly: boolean): void {
     this.proximityOnceOnlySetters.get(groupId)?.(onceOnly);
+  }
+
+  /**
+   * Suspends (or resumes) every moveend/move/sourcedata-driven re-evaluation — ambient, bgm-state,
+   * bgm-priority-groups, proximity-trigger-groups, and event layers with `sound-trigger: 'always'` —
+   * along with the queryRenderedFeatures/queryFeaturesWithinRadius calls each one makes. Click/hover/
+   * zoom/movestart-triggered event layers are unaffected (they don't run on this loop and are cheap
+   * regardless).
+   *
+   * This adapter already calls it automatically whenever `engine.setEnabled()` changes — see the
+   * 'enabled-change' subscription set up in the constructor — so for the common "audio
+   * disabled/muted" case, calling `engine.setEnabled(false)` alone is enough to both silence output
+   * and stop this now-pointless work; there's no need to call this directly as well. Exposed
+   * publicly for a caller that wants to pause this adapter's work independently of the engine's
+   * enabled state (e.g. while a screen using it is backgrounded).
+   *
+   * Resuming (`setSuspended(false)`) immediately re-runs every pending update() once, to resync
+   * ambient/bgm-state/etc. to whatever changed on the map while suspended, rather than waiting for
+   * the next moveend/sourcedata to happen to fire.
+   */
+  setSuspended(suspended: boolean): void {
+    if (this.suspended === suspended) return;
+    this.suspended = suspended;
+    if (!suspended) {
+      for (const update of this.reevaluateFns) {
+        update();
+      }
+    }
   }
 
   /** Detaches the adapter, removing all event listeners from the map */
@@ -1154,6 +1234,7 @@ export class MapboxSoundAdapter {
     this.lastUpdateAt.clear();
     this.lastBgmStateKey.clear();
     this.proximityOnceOnlySetters.clear();
+    this.reevaluateFns.splice(0);
   }
 }
 

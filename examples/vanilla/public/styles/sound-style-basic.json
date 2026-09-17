@@ -4,7 +4,7 @@
   "sources": {
     "poi-sfx": {
       "type": "audio-sprite",
-      "url": "/audio/poi-sfx.wav",
+      "url": "/audio-basic/poi-sfx.wav",
       "sprite": {
         "select": {
           "start": 0,
@@ -19,55 +19,55 @@
     },
     "traffic-sfx": {
       "type": "single",
-      "url": "/audio/traffic-jam.wav",
+      "url": "/audio-basic/traffic-jam.wav",
       "attribution": "Traffic jam recording via <a href=\"https://pixabay.com/\" target=\"_blank\">Pixabay</a> (Pixabay Content License)"
     },
     "weather-rain-ambient": {
       "type": "single",
-      "url": "/audio/weather-rain-ambient.wav",
+      "url": "/audio-basic/weather-rain-ambient.wav",
       "loop": true,
       "streaming": true
     },
     "weather-storm-ambient": {
       "type": "single",
-      "url": "/audio/weather-storm-ambient.wav",
+      "url": "/audio-basic/weather-storm-ambient.wav",
       "loop": true,
       "streaming": true
     },
     "area-bgm-urban": {
       "type": "single",
-      "url": "/audio/area-bgm-urban.mp3",
+      "url": "/audio-basic/area-bgm-urban.mp3",
       "loop": true,
       "streaming": true,
       "attribution": "\"Town Theme RPG\" by cynicmusic (CC0)"
     },
     "area-bgm-sea": {
       "type": "single",
-      "url": "/audio/area-bgm-sea.mp3",
+      "url": "/audio-basic/area-bgm-sea.mp3",
       "loop": true,
       "streaming": true
     },
     "area-bgm-desert": {
       "type": "single",
-      "url": "/audio/area-bgm-desert.mp3",
+      "url": "/audio-basic/area-bgm-desert.mp3",
       "loop": true,
       "streaming": true
     },
     "area-bgm-forest": {
       "type": "single",
-      "url": "/audio/area-bgm-forest.mp3",
+      "url": "/audio-basic/area-bgm-forest.mp3",
       "loop": true,
       "streaming": true
     },
     "world-view-bgm": {
       "type": "single",
-      "url": "/audio/world-view-bgm.mp3",
+      "url": "/audio-basic/world-view-bgm.mp3",
       "loop": true,
       "streaming": true
     },
     "sky-sfx": {
       "type": "audio-sprite",
-      "url": "/audio/sky-sfx.wav",
+      "url": "/audio-basic/sky-sfx.wav",
       "sprite": {
         "dawn": {
           "start": 0,
@@ -89,283 +89,283 @@
     },
     "flyto-sfx": {
       "type": "single",
-      "url": "/audio/flyto-whoosh.wav"
+      "url": "/audio-basic/flyto-whoosh.wav"
     },
     "ease-glide-sfx": {
       "type": "single",
-      "url": "/audio/ease-glide.wav"
+      "url": "/audio-basic/ease-glide.wav"
     },
     "jump-teleport-sfx": {
       "type": "single",
-      "url": "/audio/jump-teleport.wav"
+      "url": "/audio-basic/jump-teleport.wav"
     },
     "jp-country-bgm-forest": {
       "type": "single",
-      "url": "/audio/jp-country-bgm-forest.wav",
+      "url": "/audio-basic/jp-country-bgm-forest.wav",
       "loop": true,
       "streaming": true
     },
     "jp-country-bgm-urban": {
       "type": "single",
-      "url": "/audio/jp-country-bgm-urban.wav",
+      "url": "/audio-basic/jp-country-bgm-urban.wav",
       "loop": true,
       "streaming": true
     },
     "jp-country-bgm-urban-night": {
       "type": "single",
-      "url": "/audio/jp-country-bgm-urban-night.wav",
+      "url": "/audio-basic/jp-country-bgm-urban-night.wav",
       "loop": true,
       "streaming": true
     },
     "light-terrain-bgm": {
       "type": "single",
-      "url": "/audio/light-terrain-bgm.wav",
+      "url": "/audio-basic/light-terrain-bgm.wav",
       "loop": true,
       "streaming": true
     },
     "jp-forest-night-bgm": {
       "type": "single",
-      "url": "/audio/jp-forest-night-bgm.wav",
+      "url": "/audio-basic/jp-forest-night-bgm.wav",
       "loop": true,
       "streaming": true
     },
     "gb-country-bgm": {
       "type": "single",
-      "url": "/audio/gb-country-bgm.wav",
+      "url": "/audio-basic/gb-country-bgm.wav",
       "loop": true,
       "streaming": true
     },
     "poi-category-sfx/dog-park": {
       "type": "single",
-      "url": "/audio/poi-category-dog-park.wav"
+      "url": "/audio-basic/poi-category-dog-park.wav"
     },
     "poi-category-sfx/religious-christian": {
       "type": "single",
-      "url": "/audio/poi-category-religious-christian.wav"
+      "url": "/audio-basic/poi-category-religious-christian.wav"
     },
     "poi-category-sfx/airport": {
       "type": "single",
-      "url": "/audio/poi-category-airport-sydney.wav"
+      "url": "/audio-basic/poi-category-airport-sydney.wav"
     },
     "poi-category-sfx/restaurant": {
       "type": "single",
-      "url": "/audio/poi-category-restaurant.wav"
+      "url": "/audio-basic/poi-category-restaurant.wav"
     },
     "poi-category-sfx/amusement-park": {
       "type": "single",
-      "url": "/audio/poi-category-amusement-park.wav"
+      "url": "/audio-basic/poi-category-amusement-park.wav"
     },
     "poi-category-sfx/bar": {
       "type": "single",
-      "url": "/audio/poi-category-bar.wav"
+      "url": "/audio-basic/poi-category-bar.wav"
     },
     "poi-category-sfx/stadium": {
       "type": "single",
-      "url": "/audio/poi-category-stadium.wav"
+      "url": "/audio-basic/poi-category-stadium.wav"
     },
     "poi-category-sfx/basketball": {
       "type": "single",
-      "url": "/audio/poi-category-basketball.wav"
+      "url": "/audio-basic/poi-category-basketball.wav"
     },
     "poi-category-sfx/school": {
       "type": "single",
-      "url": "/audio/poi-category-school.wav"
+      "url": "/audio-basic/poi-category-school.wav"
     },
     "poi-category-sfx/college-library": {
       "type": "single",
-      "url": "/audio/poi-category-college-library.wav"
+      "url": "/audio-basic/poi-category-college-library.wav"
     },
     "poi-category-sfx/beach": {
       "type": "single",
-      "url": "/audio/poi-category-beach.wav"
+      "url": "/audio-basic/poi-category-beach.wav"
     },
     "poi-category-sfx/bicycle": {
       "type": "single",
-      "url": "/audio/poi-category-bicycle.wav"
+      "url": "/audio-basic/poi-category-bicycle.wav"
     },
     "poi-category-sfx/shop": {
       "type": "single",
-      "url": "/audio/poi-category-shop.wav"
+      "url": "/audio-basic/poi-category-shop.wav"
     },
     "poi-category-sfx/castle": {
       "type": "single",
-      "url": "/audio/poi-category-castle.wav"
+      "url": "/audio-basic/poi-category-castle.wav"
     },
     "poi-category-sfx/attraction": {
       "type": "single",
-      "url": "/audio/poi-category-attraction.wav"
+      "url": "/audio-basic/poi-category-attraction.wav"
     },
     "poi-category-sfx/cemetery": {
       "type": "single",
-      "url": "/audio/poi-category-cemetery.wav"
+      "url": "/audio-basic/poi-category-cemetery.wav"
     },
     "poi-category-sfx/zoo": {
       "type": "single",
-      "url": "/audio/poi-category-zoo.wav"
+      "url": "/audio-basic/poi-category-zoo.wav"
     },
     "poi-category-sfx/aquarium": {
       "type": "single",
-      "url": "/audio/poi-category-aquarium.wav"
+      "url": "/audio-basic/poi-category-aquarium.wav"
     },
     "poi-category-sfx/alcohol-shop": {
       "type": "single",
-      "url": "/audio/poi-category-alcohol-shop.wav"
+      "url": "/audio-basic/poi-category-alcohol-shop.wav"
     },
     "poi-category-sfx/monument": {
       "type": "single",
-      "url": "/audio/poi-category-monument.wav"
+      "url": "/audio-basic/poi-category-monument.wav"
     },
     "poi-category-sfx/landmark": {
       "type": "single",
-      "url": "/audio/poi-category-landmark.wav"
+      "url": "/audio-basic/poi-category-landmark.wav"
     },
     "poi-category-sfx/waterfall": {
       "type": "single",
-      "url": "/audio/poi-category-waterfall.wav"
+      "url": "/audio-basic/poi-category-waterfall.wav"
     },
     "poi-category-sfx/police": {
       "type": "single",
-      "url": "/audio/poi-category-police.wav"
+      "url": "/audio-basic/poi-category-police.wav"
     },
     "poi-category-sfx/fire-station": {
       "type": "single",
-      "url": "/audio/poi-category-fire-station.wav"
+      "url": "/audio-basic/poi-category-fire-station.wav"
     },
     "poi-category-sfx/car": {
       "type": "single",
-      "url": "/audio/poi-category-car.wav"
+      "url": "/audio-basic/poi-category-car.wav"
     },
     "poi-category-sfx/farm": {
       "type": "single",
-      "url": "/audio/poi-category-farm.wav"
+      "url": "/audio-basic/poi-category-farm.wav"
     },
     "poi-category-sfx/horse": {
       "type": "single",
-      "url": "/audio/poi-category-horse.wav"
+      "url": "/audio-basic/poi-category-horse.wav"
     },
     "poi-category-sfx/windmill": {
       "type": "single",
-      "url": "/audio/poi-category-windmill.wav"
+      "url": "/audio-basic/poi-category-windmill.wav"
     },
     "poi-category-sfx/veterinary": {
       "type": "single",
-      "url": "/audio/poi-category-veterinary.wav"
+      "url": "/audio-basic/poi-category-veterinary.wav"
     },
     "poi-category-sfx/golf": {
       "type": "single",
-      "url": "/audio/poi-category-golf.wav"
+      "url": "/audio-basic/poi-category-golf.wav"
     },
     "poi-category-sfx/dentist": {
       "type": "single",
-      "url": "/audio/poi-category-dentist.wav"
+      "url": "/audio-basic/poi-category-dentist.wav"
     },
     "poi-category-sfx/casino": {
       "type": "single",
-      "url": "/audio/poi-category-casino.wav"
+      "url": "/audio-basic/poi-category-casino.wav"
     },
     "poi-category-sfx/highway": {
       "type": "single",
-      "url": "/audio/poi-category-highway.wav"
+      "url": "/audio-basic/poi-category-highway.wav"
     },
     "poi-category-sfx/religious-buddhist": {
       "type": "single",
-      "url": "/audio/poi-category-religious-buddhist.wav"
+      "url": "/audio-basic/poi-category-religious-buddhist.wav"
     },
     "poi-category-sfx/religious-muslim": {
       "type": "single",
-      "url": "/audio/poi-category-religious-muslim.wav"
+      "url": "/audio-basic/poi-category-religious-muslim.wav"
     },
     "poi-category-sfx/bowling": {
       "type": "single",
-      "url": "/audio/poi-category-bowling.wav"
+      "url": "/audio-basic/poi-category-bowling.wav"
     },
     "poi-category-sfx/volleyball": {
       "type": "single",
-      "url": "/audio/poi-category-volleyball.wav"
+      "url": "/audio-basic/poi-category-volleyball.wav"
     },
     "poi-category-sfx/tennis": {
       "type": "single",
-      "url": "/audio/poi-category-tennis.wav"
+      "url": "/audio-basic/poi-category-tennis.wav"
     },
     "poi-category-sfx/hot-spring": {
       "type": "single",
-      "url": "/audio/poi-category-hot-spring.wav"
+      "url": "/audio-basic/poi-category-hot-spring.wav"
     },
     "poi-category-sfx/heliport": {
       "type": "single",
-      "url": "/audio/poi-category-heliport.wav"
+      "url": "/audio-basic/poi-category-heliport.wav"
     },
     "poi-category-sfx/laundry": {
       "type": "single",
-      "url": "/audio/poi-category-laundry.wav"
+      "url": "/audio-basic/poi-category-laundry.wav"
     },
     "poi-category-sfx/industrial": {
       "type": "single",
-      "url": "/audio/poi-category-industrial.wav"
+      "url": "/audio-basic/poi-category-industrial.wav"
     },
     "poi-category-sfx/information": {
       "type": "single",
-      "url": "/audio/poi-category-information.wav"
+      "url": "/audio-basic/poi-category-information.wav"
     },
     "poi-category-sfx/music": {
       "type": "single",
-      "url": "/audio/poi-category-music.wav"
+      "url": "/audio-basic/poi-category-music.wav"
     },
     "poi-category-sfx/parking": {
       "type": "single",
-      "url": "/audio/poi-category-parking.wav"
+      "url": "/audio-basic/poi-category-parking.wav"
     },
     "poi-category-sfx/racetrack": {
       "type": "single",
-      "url": "/audio/poi-category-racetrack.wav"
+      "url": "/audio-basic/poi-category-racetrack.wav"
     },
     "poi-category-sfx/religious-jewish": {
       "type": "single",
-      "url": "/audio/poi-category-religious-jewish.wav"
+      "url": "/audio-basic/poi-category-religious-jewish.wav"
     },
     "poi-category-sfx/religious-shinto": {
       "type": "single",
-      "url": "/audio/poi-category-religious-shinto.wav"
+      "url": "/audio-basic/poi-category-religious-shinto.wav"
     },
     "poi-category-sfx/skateboard": {
       "type": "single",
-      "url": "/audio/poi-category-skateboard.wav"
+      "url": "/audio-basic/poi-category-skateboard.wav"
     },
     "poi-category-sfx/table-tennis": {
       "type": "single",
-      "url": "/audio/poi-category-table-tennis.wav"
+      "url": "/audio-basic/poi-category-table-tennis.wav"
     },
     "poi-category-sfx/theatre": {
       "type": "single",
-      "url": "/audio/poi-category-theatre.wav"
+      "url": "/audio-basic/poi-category-theatre.wav"
     },
     "poi-category-sfx/toilet": {
       "type": "single",
-      "url": "/audio/poi-category-toilet.wav"
+      "url": "/audio-basic/poi-category-toilet.wav"
     },
     "poi-category-sfx/car-repair": {
       "type": "single",
-      "url": "/audio/poi-category-car-repair.wav"
+      "url": "/audio-basic/poi-category-car-repair.wav"
     },
     "poi-category-sfx/car-wash": {
       "type": "single",
-      "url": "/audio/poi-category-car-wash.wav"
+      "url": "/audio-basic/poi-category-car-wash.wav"
     },
     "poi-category-sfx/communications-tower": {
       "type": "single",
-      "url": "/audio/poi-category-communications-tower.wav"
+      "url": "/audio-basic/poi-category-communications-tower.wav"
     },
     "poi-category-sfx/fuel": {
       "type": "single",
-      "url": "/audio/poi-category-fuel.wav"
+      "url": "/audio-basic/poi-category-fuel.wav"
     },
     "poi-category-sfx/station": {
       "type": "single",
-      "url": "/audio/poi-category-station.wav"
+      "url": "/audio-basic/poi-category-station.wav"
     },
     "poi-category-sfx/bus-stop": {
       "type": "single",
-      "url": "/audio/poi-category-bus-stop.wav"
+      "url": "/audio-basic/poi-category-bus-stop.wav"
     }
   },
   "sound-layers": [

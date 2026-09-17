@@ -123,7 +123,7 @@ export class AssetManager {
     }
 
     entry.state = 'loading';
-    const load = entry.kind === 'streaming' ? this.loadStreaming(entry) : this.loadBuffer(entry);
+    const load = entry.kind === 'streaming' ? this.loadStreaming(sourceId, entry) : this.loadBuffer(entry);
     const promise = load
       .then(() => {
         entry.state = 'loaded';
@@ -190,7 +190,7 @@ export class AssetManager {
    * rather than 'loadedmetadata'. createMediaElementSource can only be called once per
    * element, so we call it exactly once here, on successful load.
    */
-  private loadStreaming(entry: AssetEntry): Promise<void> {
+  private loadStreaming(sourceId: string, entry: AssetEntry): Promise<void> {
     const spec = entry.spec as SingleSoundSource;
     const url = this.resolveUrl(spec.url);
     const element = new Audio();
@@ -219,6 +219,10 @@ export class AssetManager {
       };
       const onError = () => {
         cleanup();
+        element.pause();
+        element.removeAttribute('src');
+        element.load();
+        element.parentNode?.removeChild(element);
         reject(new AssetLoadError(`Failed to load streaming source "${url}"`, url, element.error));
       };
       element.addEventListener('canplaythrough', onCanPlay, { once: true });
@@ -227,7 +231,16 @@ export class AssetManager {
       element.load();
     }).then(() => {
       const sourceNode = this.audioContext.createMediaElementSource(element);
-      entry.streaming = { element, sourceNode };
+      const handle: StreamingHandle = { element, sourceNode };
+      // If a clear()/unload() ran while this load was in flight (e.g. a style switch racing a
+      // still-loading BGM), `entry` was already dropped from `this.entries` and replaced or
+      // removed — assigning to it here would leave this <audio> element permanently attached to
+      // document.body with nothing left to release it. Release it ourselves instead of leaking it.
+      if (this.entries.get(sourceId) !== entry) {
+        this.releaseStreamingHandle(handle);
+        return;
+      }
+      entry.streaming = handle;
     });
   }
 
@@ -321,6 +334,10 @@ export class AssetManager {
   }
 
   unload(sourceId: string): void {
+    const entry = this.entries.get(sourceId);
+    if (entry?.kind === 'streaming' && entry.streaming) {
+      this.releaseStreamingHandle(entry.streaming);
+    }
     this.entries.delete(sourceId);
   }
 

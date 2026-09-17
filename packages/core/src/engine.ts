@@ -26,7 +26,8 @@ export type SoundStyleEngineEvent =
   | { type: 'load' }
   | { type: 'error'; error: Error; layerId?: string }
   | { type: 'layer:play'; layerId: string; feature?: EvaluationContext['feature']; meta?: TriggerMeta }
-  | { type: 'layer:stop'; layerId: string; feature?: EvaluationContext['feature']; meta?: TriggerMeta };
+  | { type: 'layer:stop'; layerId: string; feature?: EvaluationContext['feature']; meta?: TriggerMeta }
+  | { type: 'enabled-change'; enabled: boolean };
 
 export interface SoundStyleEngineOptions {
   audioContext?: AudioContext;
@@ -75,7 +76,33 @@ interface LayerRuntime {
  */
 type PlaybackHandle =
   | { kind: 'buffer'; sourceNode: AudioBufferSourceNode }
-  | { kind: 'streaming'; sourceId: string; element: HTMLAudioElement; sourceNode: MediaElementAudioSourceNode };
+  | {
+      kind: 'streaming';
+      sourceId: string;
+      element: HTMLAudioElement;
+      sourceNode: MediaElementAudioSourceNode;
+      /**
+       * True if this voice is the one allowed to touch this streaming source's shared
+       * HTMLAudioElement's element-wide playback state (currentTime/loop/playbackRate/
+       * play()/pause()) — see buildVoice/streamingVoicesBySource. Starts true only for the
+       * first voice built while no other voice was already using the element; a later voice
+       * built on top of it starts non-primary, just tapping into whatever is already playing
+       * via its own gain/pan chain, so it doesn't yank the primary's playback position or cut
+       * its audio out from under it. If the primary voice is later disconnected while a
+       * non-primary one is still active, disconnectVoice() promotes one of the survivors so
+       * the source doesn't end up with no voice able to control it at all.
+       */
+      primary: boolean;
+    };
+
+/**
+ * The streaming variant of PlaybackHandle, used as the identity tracked in
+ * streamingVoicesBySource. Deliberately not `Voice` itself: setActiveState() stores bgm-state
+ * voices via `{ ...voice, stateKey }`, a shallow copy that produces a new Voice *wrapper* object
+ * on every read from bgmVoices — but `playback` is carried over by reference, so it stays a
+ * stable identity across that copy where the wrapper wouldn't.
+ */
+type StreamingPlaybackHandle = Extract<PlaybackHandle, { kind: 'streaming' }>;
 
 interface Voice {
   playback: PlaybackHandle;
@@ -102,6 +129,13 @@ export class SoundStyleEngine {
   private readonly assets: AssetManager;
   private readonly evaluator: ExpressionEvaluator;
   private readonly masterGain: GainNode;
+  /**
+   * Downstream of masterGain, gates all output on/off independently of it (see setEnabled()) — so
+   * disabling audio doesn't disturb whatever level masterGain/a volume slider is currently showing,
+   * and re-enabling restores exactly that level instantly rather than requiring the caller to
+   * remember and restore it themselves.
+   */
+  private readonly enabledGain: GainNode;
   /** The intermediate GainNode for each of 'bgm'/'se'/'ambient' (between masterGain and voices). Operated on by setCategoryVolume(). */
   private readonly categoryGains: Record<SoundCategory, GainNode>;
   private readonly layers = new Map<string, LayerRuntime>();
@@ -124,8 +158,25 @@ export class SoundStyleEngine {
   private proximityTriggerGroups: ProximityTriggerGroup[] = [];
   /** The loaded Style's sources[].attribution values, deduplicated (see getAttributions()) */
   private attributions: string[] = [];
-  /** Tracks pending stops (setTimeout) per streaming source's sourceId. See scheduleStop(). */
-  private readonly pendingStreamingStops = new Map<string, { timer: ReturnType<typeof setTimeout>; cleanup: () => void }>();
+  /**
+   * Tracks each streaming voice's still-pending scheduled disconnect (setTimeout), keyed by its
+   * own (copy-stable) playback handle rather than by sourceId — see StreamingPlaybackHandle and
+   * scheduleStop(). Keying by sourceId would let a second fading voice on the same source silently
+   * overwrite the first one's bookkeeping entry (its timer would still fire on its own, but
+   * cancelPendingStreamingStops()/clearPendingStreamingStops() would lose track of it), since
+   * multiple voices can share one streaming source (see PlaybackHandle['primary']).
+   */
+  private readonly pendingStreamingStops = new Map<
+    StreamingPlaybackHandle,
+    { timer: ReturnType<typeof setTimeout>; cleanup: () => void }
+  >();
+  /**
+   * All currently-active voices per streaming sourceId (a source's HTMLAudioElement is shared
+   * across every voice built against it — see PlaybackHandle['primary']). Used to decide
+   * whether a new voice is the sole ("primary") user of that element, and whether stopping a
+   * voice is safe to pause() the element outright (only when it's the last one left).
+   */
+  private readonly streamingVoicesBySource = new Map<string, Set<StreamingPlaybackHandle>>();
   /**
    * Layer IDs disabled via setLayerEnabled(id, false) (e.g. an app's individual POI/traffic
    * toggles). trigger()/updateContext()/setActiveState()/updateActiveStateParams() do nothing
@@ -140,7 +191,9 @@ export class SoundStyleEngine {
     this.assets = new AssetManager({ audioContext: this.audioContext, baseUrl: options.baseUrl });
     this.evaluator = new ExpressionEvaluator({ propertySpecs: PAINT_PROPERTY_SPECS });
     this.masterGain = this.audioContext.createGain();
-    this.masterGain.connect(this.audioContext.destination);
+    this.enabledGain = this.audioContext.createGain();
+    this.masterGain.connect(this.enabledGain);
+    this.enabledGain.connect(this.audioContext.destination);
 
     const categories: SoundCategory[] = ['bgm', 'se', 'ambient'];
     this.categoryGains = Object.fromEntries(
@@ -230,6 +283,27 @@ export class SoundStyleEngine {
 
   setMasterVolume(volume: number): void {
     this.masterGain.gain.value = volume;
+  }
+
+  /** Whether audio output is enabled (see setEnabled()) — independent of getMasterVolume(). */
+  getEnabled(): boolean {
+    return this.enabledGain.gain.value !== 0;
+  }
+
+  /**
+   * Enables/disables all audio output, independently of masterVolume. Unlike calling
+   * `setMasterVolume(0)` to mute, this doesn't disturb whatever level masterVolume (e.g. a volume
+   * slider) is currently showing — re-enabling restores exactly that level instantly, with no need
+   * for the caller to remember and restore it themselves.
+   *
+   * Emits 'enabled-change' (only when the value actually changes) so other components can react —
+   * e.g. `MapboxSoundAdapter` suspends its own map-query work while disabled, so a single call here
+   * is enough to both silence the engine and stop the now-pointless work behind it.
+   */
+  setEnabled(enabled: boolean): void {
+    if (this.getEnabled() === enabled) return;
+    this.enabledGain.gain.value = enabled ? 1 : 0;
+    this.emit({ type: 'enabled-change', enabled });
   }
 
   /** The intermediate volume for each of 'bgm'/'se'/'ambient' (independent of masterVolume; 0 mutes completely). Default 1. */
@@ -569,6 +643,7 @@ export class SoundStyleEngine {
       gain.disconnect();
     }
     this.masterGain.disconnect();
+    this.enabledGain.disconnect();
   }
 
   /**
@@ -604,10 +679,26 @@ export class SoundStyleEngine {
       } catch {
         // Cases such as already stopped / not yet started. It's enough to just disconnect.
       }
-    } else {
+    } else if (!this.hasOtherActiveStreamingVoices(voice.playback)) {
+      // Only pause() the shared element when no other voice is still relying on it — see
+      // streamingVoicesBySource / PlaybackHandle['primary'].
       voice.playback.element.pause();
     }
     this.disconnectVoice(voice);
+  }
+
+  /** True if some voice other than this one is currently active on the same streaming source's shared HTMLAudioElement. */
+  private hasOtherActiveStreamingVoices(playback: StreamingPlaybackHandle): boolean {
+    const voices = this.streamingVoicesBySource.get(playback.sourceId);
+    if (!voices) {
+      return false;
+    }
+    for (const other of voices) {
+      if (other !== playback) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -632,48 +723,76 @@ export class SoundStyleEngine {
     // happens in quick succession, this scheduled pause() would wrongly stop the new voice's
     // playback (discovered and fixed on real devices on 2026-09-12 — this occurred when
     // re-evaluating a bgm-priority-group made the terrain determination briefly flicker to a
-    // different value and then immediately return to the same terrain). This tracks "pending
-    // stops" per sourceId, and when a new voice is built against the same source (see buildVoice),
-    // it skips pause() and instead immediately performs only the old voice's cleanup, while always
-    // canceling this scheduled stop.
+    // different value and then immediately return to the same terrain). This tracks each voice's
+    // own pending stop (keyed by its playback handle, not sourceId — see pendingStreamingStops'
+    // doc comment), and when a new voice is built against the same source (see buildVoice), it
+    // skips pause() and instead immediately performs only the old voice(s)' cleanup, while always
+    // canceling their scheduled stops.
     const playback = voice.playback;
     const delayMs = Math.max(0, (atTime - this.audioContext.currentTime) * 1000);
     const timer = setTimeout(() => {
-      this.pendingStreamingStops.delete(playback.sourceId);
-      playback.element.pause();
+      this.pendingStreamingStops.delete(playback);
+      // Re-checked at fire time (not schedule time) — another voice may have started on this
+      // source in the meantime, in which case pausing here would cut its audio too.
+      if (!this.hasOtherActiveStreamingVoices(playback)) {
+        playback.element.pause();
+      }
       onStopped();
     }, delayMs);
-    this.pendingStreamingStops.set(playback.sourceId, { timer, cleanup: onStopped });
-  }
-
-  /** Called from buildVoice()'s streaming branch. See scheduleStop(). */
-  private cancelPendingStreamingStop(sourceId: string): void {
-    const pending = this.pendingStreamingStops.get(sourceId);
-    if (!pending) {
-      return;
-    }
-    clearTimeout(pending.timer);
-    this.pendingStreamingStops.delete(sourceId);
-    pending.cleanup();
+    this.pendingStreamingStops.set(playback, { timer, cleanup: onStopped });
   }
 
   /**
-   * Called on a runtime Style switch in load(), and from dispose(). Since assets.clear()/
-   * dispose() forcibly destroys streaming elements, it's meaningless for an old setTimeout to
-   * later fire and call pause() or cleanup() (the state is already a different Style / already
-   * disposed) — so the timers themselves are discarded too.
+   * Called from buildVoice()'s streaming branch: force-cleans up every voice for this source
+   * that's still waiting on a scheduled disconnect (there can be more than one — e.g. two
+   * different bgm-state layers sharing one streaming source, each fading out around the same
+   * time), so none of them linger in streamingVoicesBySource and wrongly make the new voice
+   * about to be built look non-primary. See scheduleStop().
+   */
+  private cancelPendingStreamingStops(sourceId: string): void {
+    for (const [playback, pending] of this.pendingStreamingStops) {
+      if (playback.sourceId !== sourceId) {
+        continue;
+      }
+      clearTimeout(pending.timer);
+      this.pendingStreamingStops.delete(playback);
+      pending.cleanup();
+    }
+  }
+
+  /**
+   * Called on a runtime Style switch in load(), and from dispose(). The scheduled pause() itself
+   * is pointless once assets.clear()/dispose() is about to forcibly destroy the streaming
+   * elements anyway, so the timers are discarded — but `cleanup()` (disconnectVoice() for the
+   * still-fading voice) must still run synchronously here, not merely be skipped: that voice was
+   * already removed from bgmVoices when its fade-out started, so stopAllVoices() (called earlier
+   * in load()/dispose()) never saw it, and it would otherwise stay registered in
+   * streamingVoicesBySource forever. If the next style reuses the same sourceId (e.g. every
+   * style names its BGM source "bgm"), that stale entry would make the new style's first voice
+   * for that source look non-primary, so it would never call play() at all (see
+   * PlaybackHandle['primary']) — found while re-reviewing this file after the identity-tracking
+   * bug fix.
    */
   private clearPendingStreamingStops(): void {
     for (const pending of this.pendingStreamingStops.values()) {
       clearTimeout(pending.timer);
+      pending.cleanup();
     }
     this.pendingStreamingStops.clear();
   }
 
-  /** Starts playback according to clip.offset/loop. For streaming, watches the Promise from HTMLMediaElement#play(). */
+  /**
+   * Starts playback according to clip.offset/loop. For streaming, watches the Promise from
+   * HTMLMediaElement#play(). A non-primary streaming voice (see PlaybackHandle['primary']) is
+   * a no-op here — the element is already playing under the primary voice, and resetting
+   * currentTime/play() again would yank its playback position out from under it.
+   */
   private startVoice(voice: Voice, clip: ClipRange, layerId: string): void {
     if (voice.playback.kind === 'buffer') {
       voice.playback.sourceNode.start(0, clip.offset, clip.loop ? undefined : clip.duration);
+      return;
+    }
+    if (!voice.playback.primary) {
       return;
     }
     const { element } = voice.playback;
@@ -696,10 +815,17 @@ export class SoundStyleEngine {
     voice.playback.element.addEventListener('ended', handler, { once: true });
   }
 
-  /** Branches because buffer's playbackRate is an AudioParam, while streaming's is a plain HTMLMediaElement property. */
+  /**
+   * Branches because buffer's playbackRate is an AudioParam, while streaming's is a plain
+   * HTMLMediaElement property. A non-primary streaming voice (see PlaybackHandle['primary'])
+   * is a no-op — playbackRate is element-wide, so only the primary voice may change it.
+   */
   private setPlaybackRate(voice: Voice, pitch: number): void {
     if (voice.playback.kind === 'buffer') {
       voice.playback.sourceNode.playbackRate.value = pitch;
+      return;
+    }
+    if (!voice.playback.primary) {
       return;
     }
     voice.playback.element.playbackRate = pitch;
@@ -793,11 +919,16 @@ export class SoundStyleEngine {
       // If there's a "pending stop" that was just scheduleStop()'d for this source, we're now
       // building a new voice on the very same HTMLAudioElement, so cancel it before it can
       // pause() (see the comment on scheduleStop() — a bug found on real devices on 2026-09-12).
-      this.cancelPendingStreamingStop(sourceId);
+      this.cancelPendingStreamingStops(sourceId);
       const { element, sourceNode } = asset.handle;
-      element.loop = clip.loop;
-      element.playbackRate = pitch;
-      playback = { kind: 'streaming', sourceId, element, sourceNode };
+      // Only the primary voice (the first one active for this source) is allowed to touch
+      // element-wide state — see PlaybackHandle['primary'].
+      const primary = !this.streamingVoicesBySource.get(sourceId)?.size;
+      if (primary) {
+        element.loop = clip.loop;
+        element.playbackRate = pitch;
+      }
+      playback = { kind: 'streaming', sourceId, element, sourceNode, primary };
     }
 
     const gainNode = this.audioContext.createGain();
@@ -823,7 +954,19 @@ export class SoundStyleEngine {
 
     lastNode.connect(this.categoryGains[category]);
 
-    return { playback, gainNode, pannerNode, filterNode };
+    const voice: Voice = { playback, gainNode, pannerNode, filterNode };
+    if (playback.kind === 'streaming') {
+      // Tracked by the playback handle, not `voice` itself — see StreamingPlaybackHandle's doc
+      // comment (setActiveState() later stores bgm-state voices via a shallow copy that would
+      // break identity-based lookups keyed on the Voice wrapper).
+      let voices = this.streamingVoicesBySource.get(playback.sourceId);
+      if (!voices) {
+        voices = new Set();
+        this.streamingVoicesBySource.set(playback.sourceId, voices);
+      }
+      voices.add(playback);
+    }
+    return voice;
   }
 
   private disconnectVoice(voice: Voice): void {
@@ -837,6 +980,24 @@ export class SoundStyleEngine {
     voice.playback.sourceNode.disconnect(voice.gainNode);
     if (voice.playback.kind === 'streaming') {
       this.assets.release(voice.playback.sourceId);
+      const voices = this.streamingVoicesBySource.get(voice.playback.sourceId);
+      if (voices) {
+        voices.delete(voice.playback);
+        if (voices.size === 0) {
+          this.streamingVoicesBySource.delete(voice.playback.sourceId);
+        } else if (voice.playback.primary) {
+          // The primary voice is gone but others are still using this source's shared
+          // element — promote one of them so the source isn't left with no voice able to
+          // control its playback state (see PlaybackHandle['primary']). Its own
+          // pitch/loop aren't retroactively reapplied here; the next paint update
+          // (updateContext()/updateActiveStateParams()) for that layer picks them up
+          // naturally now that setPlaybackRate() will no longer no-op for it.
+          const [promoted] = voices;
+          if (promoted) {
+            promoted.primary = true;
+          }
+        }
+      }
     }
     voice.gainNode.disconnect();
     voice.pannerNode.disconnect();

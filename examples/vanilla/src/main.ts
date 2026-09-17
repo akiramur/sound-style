@@ -419,14 +419,18 @@ function main(token: string): void {
     updateDetectionCircleSize();
     // Once sound-style is running, the button becomes a mute toggle ("Disable audio"/"Enable
     // audio") rather than a one-shot start button — the engine/MapboxSoundAdapter/map listeners
-    // set up on the first click all stay alive; "disabling" just silences the master volume rather
+    // set up on the first click all stay alive; "disabling" just calls engine.setEnabled() rather
     // than tearing anything down (simplest way to make it safely re-enable-able, and ambient/
     // bgm-state layers keep their state so they don't have to re-evaluate from scratch).
+    // setEnabled() gates output independently of setMasterVolume() (so the volume slider keeps
+    // showing its own level while muted) and MapboxSoundAdapter follows it automatically —
+    // pausing its moveend/move/sourcedata re-evaluation (and queryRenderedFeatures calls) while
+    // disabled, with no separate call needed here.
     let audioMuted = false;
     enableAudioButton?.addEventListener('click', () => {
       if (activeEngine) {
         audioMuted = !audioMuted;
-        activeEngine.setMasterVolume(audioMuted ? 0 : (volumeInput ? Number(volumeInput.value) : DEFAULT_MASTER_VOLUME));
+        activeEngine.setEnabled(!audioMuted);
         if (enableAudioButton) enableAudioButton.textContent = audioMuted ? 'Enable audio' : 'Disable audio';
         setControlsVisible(!audioMuted);
         return;

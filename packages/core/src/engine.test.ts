@@ -21,6 +21,7 @@ function createFakeNode() {
 function createFakeAudioContext() {
   const destination = createFakeNode();
   const masterGain = { ...createFakeNode(), gain: createAudioParam(1) };
+  const enabledGain = { ...createFakeNode(), gain: createAudioParam(1) };
 
   const createdBufferSources: Array<{
     buffer: AudioBuffer | null;
@@ -72,15 +73,16 @@ function createFakeAudioContext() {
     return node;
   });
   // The SoundStyleEngine constructor calls createGain() exactly once (in this order) for
-  // masterGain, followed by the 'bgm'/'se'/'ambient' intermediate GainNodes, so swap the
-  // first four calls for their own stubs (kept out of createdGainNodes — that array should
-  // only track gain nodes created per-voice).
+  // masterGain, then enabledGain, followed by the 'bgm'/'se'/'ambient' intermediate GainNodes, so
+  // swap the first five calls for their own stubs (kept out of createdGainNodes — that array
+  // should only track gain nodes created per-voice).
   const categoryGains = {
     bgm: { ...createFakeNode(), gain: createAudioParam(1) },
     se: { ...createFakeNode(), gain: createAudioParam(1) },
     ambient: { ...createFakeNode(), gain: createAudioParam(1) },
   };
   audioContext.createGain.mockImplementationOnce(() => masterGain);
+  audioContext.createGain.mockImplementationOnce(() => enabledGain);
   audioContext.createGain.mockImplementationOnce(() => categoryGains.bgm);
   audioContext.createGain.mockImplementationOnce(() => categoryGains.se);
   audioContext.createGain.mockImplementationOnce(() => categoryGains.ambient);
@@ -90,6 +92,8 @@ function createFakeAudioContext() {
     createdBufferSources,
     createdGainNodes,
     categoryGains,
+    masterGain,
+    enabledGain,
   };
 }
 
@@ -198,6 +202,8 @@ describe('SoundStyleEngine', () => {
   let createdBufferSources: ReturnType<typeof createFakeAudioContext>['createdBufferSources'];
   let createdGainNodes: ReturnType<typeof createFakeAudioContext>['createdGainNodes'];
   let categoryGains: ReturnType<typeof createFakeAudioContext>['categoryGains'];
+  let masterGain: ReturnType<typeof createFakeAudioContext>['masterGain'];
+  let enabledGain: ReturnType<typeof createFakeAudioContext>['enabledGain'];
 
   beforeEach(() => {
     const fake = createFakeAudioContext();
@@ -205,6 +211,8 @@ describe('SoundStyleEngine', () => {
     createdBufferSources = fake.createdBufferSources;
     createdGainNodes = fake.createdGainNodes;
     categoryGains = fake.categoryGains;
+    masterGain = fake.masterGain;
+    enabledGain = fake.enabledGain;
     vi.stubGlobal(
       'fetch',
       vi.fn().mockResolvedValue({
@@ -354,6 +362,270 @@ describe('SoundStyleEngine', () => {
     } finally {
       vi.useRealTimers();
     }
+  });
+
+  // Regression test: setActiveState() stores bgm-state voices via `{ ...voice, stateKey }` — a
+  // shallow copy that produces a new Voice *wrapper* object distinct from the one buildVoice()
+  // originally registered for shared-element bookkeeping (streamingVoicesBySource). Tracking
+  // that bookkeeping by the wrapper's identity instead of its (stable, copy-surviving) `playback`
+  // field made every bgm-state voice look like it always had "another voice" still using the
+  // source, so the shared element never actually paused on stop — even in this single-voice case.
+  it('pauses the shared element when the only bgm-state voice using a streaming source stops', async () => {
+    vi.useFakeTimers();
+    try {
+      vi.stubGlobal('Audio', FakeAudio);
+      const engine = new SoundStyleEngine({ audioContext });
+
+      const streamingStyle: SoundStyleSpecification = {
+        version: 1,
+        sources: {
+          bgm: { type: 'single', url: '/audio/bgm.mp3', loop: true, streaming: true },
+        },
+        'sound-layers': [
+          {
+            id: 'bgm-layer',
+            type: 'bgm-state',
+            source: 'bgm',
+            layout: { 'sound-state-property': 'unused' },
+            paint: { 'sound-fade-duration': 0 },
+          },
+        ],
+      };
+
+      await engine.load(streamingStyle);
+      engine.setActiveState('bgm-layer', 'active');
+
+      const handle = (
+        engine as unknown as { assets: { getStreamingHandle: (id: string) => { element: HTMLAudioElement } } }
+      ).assets.getStreamingHandle('bgm');
+      const pauseSpy = vi.fn();
+      handle!.element.pause = pauseSpy;
+
+      engine.setActiveState('bgm-layer', undefined);
+      await vi.advanceTimersByTimeAsync(0);
+
+      expect(pauseSpy).toHaveBeenCalled();
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  // Regression test: clearPendingStreamingStops() (called from load()/dispose()) used to just
+  // clearTimeout() a pending fade-out's scheduled pause without ever running its cleanup
+  // (disconnectVoice()). A voice mid-fade-out is already removed from bgmVoices when the fade
+  // starts, so stopAllVoices() (called earlier in load()) never sees it either — meaning it
+  // stayed registered in streamingVoicesBySource forever. If the next style reuses the same
+  // sourceId (as styles commonly do, e.g. always naming the BGM source "bgm"), that stale entry
+  // made the new style's very first voice for that source look non-primary, so it silently never
+  // called play() at all.
+  it('lets a still-fading bgm-state voice start playing again after a style reload reuses its sourceId', async () => {
+    vi.useFakeTimers();
+    try {
+      vi.stubGlobal('Audio', FakeAudio);
+      const engine = new SoundStyleEngine({ audioContext });
+
+      const streamingStyle: SoundStyleSpecification = {
+        version: 1,
+        sources: {
+          bgm: { type: 'single', url: '/audio/bgm.mp3', loop: true, streaming: true },
+        },
+        'sound-layers': [
+          {
+            id: 'bgm-layer',
+            type: 'bgm-state',
+            source: 'bgm',
+            layout: { 'sound-state-property': 'unused' },
+            paint: { 'sound-fade-duration': 300 },
+          },
+        ],
+      };
+
+      await engine.load(streamingStyle);
+      engine.setActiveState('bgm-layer', 'active');
+      engine.setActiveState('bgm-layer', undefined); // starts a fade-out whose pause/cleanup has not fired yet
+
+      // A style reload races the still-pending fade (e.g. switching styles again before the
+      // previous BGM's fade-out timer fires). The new style reuses the same sourceId ('bgm').
+      await engine.load(streamingStyle);
+
+      const newHandle = (
+        engine as unknown as {
+          assets: { getStreamingHandle: (id: string) => { element: HTMLAudioElement } | undefined };
+        }
+      ).assets.getStreamingHandle('bgm');
+      if (!newHandle) throw new Error('expected a fresh streaming handle after reload');
+      const playSpy = vi.fn().mockResolvedValue(undefined);
+      newHandle.element.play = playSpy;
+
+      engine.setActiveState('bgm-layer', 'active');
+
+      expect(playSpy).toHaveBeenCalled();
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  // Regression test: pendingStreamingStops used to be keyed by sourceId, so a second voice
+  // fading out on the same shared streaming source would silently overwrite the first one's
+  // bookkeeping entry (each voice's own setTimeout still fires independently, but
+  // cancelPendingStreamingStops() would only ever find and force-clean the most recently
+  // scheduled one). Two different bgm-state layers sharing one streaming source, both fading out
+  // around the same time, is exactly this case.
+  it('force-cleans up every pending fade-out on a shared streaming source, not just the most recent one', async () => {
+    vi.stubGlobal('Audio', FakeAudio);
+    const engine = new SoundStyleEngine({ audioContext });
+
+    const style: SoundStyleSpecification = {
+      version: 1,
+      sources: {
+        bgm: { type: 'single', url: '/audio/bgm.mp3', loop: true, streaming: true },
+      },
+      'sound-layers': [
+        {
+          id: 'layer-a',
+          type: 'bgm-state',
+          source: 'bgm',
+          layout: { 'sound-state-property': 'unused' },
+          paint: { 'sound-fade-duration': 10000 },
+        },
+        {
+          id: 'layer-b',
+          type: 'bgm-state',
+          source: 'bgm',
+          layout: { 'sound-state-property': 'unused' },
+          paint: { 'sound-fade-duration': 10000 },
+        },
+        { id: 'layer-c', type: 'bgm-state', source: 'bgm', layout: { 'sound-state-property': 'unused' } },
+      ],
+    };
+
+    await engine.load(style);
+    engine.setActiveState('layer-a', 'active');
+    engine.setActiveState('layer-b', 'active');
+
+    // Both fade out around the same time, each scheduling its own long-lived pending disconnect
+    // on the shared source.
+    engine.setActiveState('layer-a', undefined);
+    engine.setActiveState('layer-b', undefined);
+
+    const handle = (
+      engine as unknown as { assets: { getStreamingHandle: (id: string) => { element: HTMLAudioElement } } }
+    ).assets.getStreamingHandle('bgm');
+    const playSpy = vi.fn().mockResolvedValue(undefined);
+    handle!.element.play = playSpy;
+
+    // A third voice on the same source should force both pending fade-outs to clean up
+    // immediately, so it becomes the sole (primary) voice and actually starts playback.
+    engine.setActiveState('layer-c', 'active');
+
+    expect(playSpy).toHaveBeenCalled();
+  });
+
+  // Regression tests: a streaming source's HTMLAudioElement is shared by every voice built
+  // against it. Before the "primary" guard, a second voice referencing the same still-active
+  // streaming source would reset the shared element's currentTime/play() again (yanking the
+  // first voice's playback position), and stopping either voice would pause() the shared
+  // element out from under the other one.
+  describe('concurrent voices on the same streaming source', () => {
+    function streamingStyleWithTwoLayers(): SoundStyleSpecification {
+      return {
+        version: 1,
+        sources: {
+          bgm: { type: 'single', url: '/audio/bgm.mp3', loop: true, streaming: true },
+        },
+        'sound-layers': [
+          { id: 'layer-a', type: 'ambient', source: 'bgm' },
+          { id: 'layer-b', type: 'ambient', source: 'bgm' },
+        ],
+      };
+    }
+
+    function getStreamingElement(engine: SoundStyleEngine): FakeAudio {
+      const handle = (
+        engine as unknown as { assets: { getStreamingHandle: (id: string) => { element: FakeAudio } | undefined } }
+      ).assets.getStreamingHandle('bgm');
+      if (!handle) throw new Error('expected the bgm source to have a streaming handle');
+      return handle.element;
+    }
+
+    it('does not reset playback position when a second voice joins an already-active source', async () => {
+      vi.stubGlobal('Audio', FakeAudio);
+      const engine = new SoundStyleEngine({ audioContext });
+      const errors: Error[] = [];
+      engine.on('error', (e) => {
+        if (e.type === 'error') errors.push(e.error);
+      });
+
+      await engine.load(streamingStyleWithTwoLayers());
+      engine.updateContext('layer-a', { zoom: 0 });
+
+      const element = getStreamingElement(engine);
+      const playSpy = vi.fn().mockResolvedValue(undefined);
+      element.play = playSpy;
+      element.currentTime = 42; // simulate mid-playback position
+
+      engine.updateContext('layer-b', { zoom: 0 });
+
+      // The second (non-primary) voice must not touch the shared element's playback state.
+      expect(playSpy).not.toHaveBeenCalled();
+      expect(element.currentTime).toBe(42);
+      expect(errors).toEqual([]);
+    });
+
+    it('only pauses the shared element once no other voice is still using it', async () => {
+      vi.stubGlobal('Audio', FakeAudio);
+      const engine = new SoundStyleEngine({ audioContext });
+
+      await engine.load(streamingStyleWithTwoLayers());
+      engine.updateContext('layer-a', { zoom: 0 });
+      engine.updateContext('layer-b', { zoom: 0 });
+
+      const element = getStreamingElement(engine);
+      const pauseSpy = vi.fn();
+      element.pause = pauseSpy;
+
+      engine.stop('layer-a');
+      expect(pauseSpy).not.toHaveBeenCalled();
+
+      engine.stop('layer-b');
+      expect(pauseSpy).toHaveBeenCalled();
+    });
+
+    // Regression test: if the primary voice is disconnected while a non-primary voice is still
+    // active on the same streaming source, the source must not end up permanently stuck with no
+    // voice able to control it (its paint updates, e.g. sound-pitch, would otherwise silently
+    // stop taking effect forever).
+    it('promotes a remaining voice to primary once the current primary is disconnected', async () => {
+      vi.stubGlobal('Audio', FakeAudio);
+      const engine = new SoundStyleEngine({ audioContext });
+
+      const style: SoundStyleSpecification = {
+        version: 1,
+        sources: {
+          bgm: { type: 'single', url: '/audio/bgm.mp3', loop: true, streaming: true },
+        },
+        'sound-layers': [
+          { id: 'layer-a', type: 'ambient', source: 'bgm' },
+          { id: 'layer-b', type: 'ambient', source: 'bgm', paint: { 'sound-pitch': 1.5 } },
+        ],
+      };
+
+      await engine.load(style);
+      engine.updateContext('layer-a', { zoom: 0 });
+      engine.updateContext('layer-b', { zoom: 0 });
+
+      const element = getStreamingElement(engine);
+      // layer-b was non-primary when built, so its pitch hasn't been applied to the shared
+      // element yet.
+      expect(element.playbackRate).toBe(1);
+
+      // Disconnects the primary voice (layer-a); layer-b's voice should be promoted.
+      engine.stop('layer-a');
+
+      // Re-evaluating layer-b's paint should now actually take effect.
+      engine.updateContext('layer-b', { zoom: 0 });
+      expect(element.playbackRate).toBe(1.5);
+    });
   });
 
   it('builds an audio graph and plays on trigger()', async () => {
@@ -657,6 +929,48 @@ describe('SoundStyleEngine', () => {
       expect(categoryGains.se.gain.value).toBe(0);
       expect(categoryGains.bgm.gain.value).toBe(1);
       expect(categoryGains.ambient.gain.value).toBe(1);
+    });
+  });
+
+  describe('setEnabled()', () => {
+    it('defaults to enabled, and gates output independently of masterVolume', () => {
+      const engine = new SoundStyleEngine({ audioContext });
+      expect(engine.getEnabled()).toBe(true);
+
+      engine.setMasterVolume(0.6);
+      engine.setEnabled(false);
+
+      expect(engine.getEnabled()).toBe(false);
+      // Disabling doesn't touch masterGain itself — only the separate enabledGain stage — so a
+      // volume slider bound to getMasterVolume() keeps showing the level the user set.
+      expect(engine.getMasterVolume()).toBe(0.6);
+      expect(enabledGain.gain.value).toBe(0);
+      expect(masterGain.gain.value).toBe(0.6);
+
+      engine.setEnabled(true);
+      expect(engine.getEnabled()).toBe(true);
+      expect(enabledGain.gain.value).toBe(1);
+      expect(engine.getMasterVolume()).toBe(0.6);
+    });
+
+    it('emits enabled-change only when the value actually changes', () => {
+      const engine = new SoundStyleEngine({ audioContext });
+      const handler = vi.fn();
+      engine.on('enabled-change', handler);
+
+      engine.setEnabled(true);
+      expect(handler).not.toHaveBeenCalled();
+
+      engine.setEnabled(false);
+      expect(handler).toHaveBeenCalledTimes(1);
+      expect(handler).toHaveBeenLastCalledWith({ type: 'enabled-change', enabled: false });
+
+      engine.setEnabled(false);
+      expect(handler).toHaveBeenCalledTimes(1);
+
+      engine.setEnabled(true);
+      expect(handler).toHaveBeenCalledTimes(2);
+      expect(handler).toHaveBeenLastCalledWith({ type: 'enabled-change', enabled: true });
     });
   });
 
