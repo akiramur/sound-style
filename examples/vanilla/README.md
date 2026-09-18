@@ -46,7 +46,7 @@ which mixes real CC0/CC-BY-licensed sources with custom synthesis — see that r
    By default this app loads its audio from the `sound-style-assets` CDN (see
    `.env.local.example` for the `VITE_AUDIO_BASE_URL` it's preconfigured with). Point it at your
    own hosting by overriding that variable — this app has no local `public/audio-basic/` fallback
-   (that's `apps/dev-app`'s job, for internal debugging with unreleased/licensed assets).
+   of its own.
 
 3. Start the dev server
 
