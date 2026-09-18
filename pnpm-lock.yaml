@@ -185,6 +185,28 @@ importers:
         specifier: 'catalog:'
         version: 5.9.3
 
+  examples/halloween:
+    dependencies:
+      '@sound-style/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+      '@sound-style/mapbox-gl':
+        specifier: workspace:*
+        version: link:../../packages/mapbox-gl
+      mapbox-gl:
+        specifier: 'catalog:'
+        version: 3.30.0
+    devDependencies:
+      '@types/geojson':
+        specifier: 'catalog:'
+        version: 7946.0.16
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vite:
+        specifier: 'catalog:'
+        version: 7.3.6(@types/node@26.5.1)(yaml@2.9.1)
+
   examples/vanilla:
     dependencies:
       '@sound-style/core':
