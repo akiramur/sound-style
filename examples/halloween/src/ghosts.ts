@@ -46,39 +46,39 @@ const GHOST_IMAGE: Record<HalloweenCategory, GhostImageConfig> = {
   cemetery: {
     // Screaming skull wreathed in wispy hair — a floating apparition, not a standing figure, so
     // (unlike the old gemini-ghost-girl here) no 'bottom' anchor.
-    src: '/ghost-images/gemini-skull-scream.png',
+    src: 'ghost-images/gemini-skull-scream.png',
     ratio: 1032 / 760,
     height: 55,
   },
   'haunted-mansion': {
     // Screaming clawed apparition — grand and dramatic.
-    src: '/ghost-images/gemini-scream-face.png',
+    src: 'ghost-images/gemini-scream-face.png',
     ratio: 406 / 753,
   },
   'witch-shop': {
     // Long horizontal streaming wisp — reads as a witch in flight.
-    src: '/ghost-images/gemini-wisp-scream.png',
+    src: 'ghost-images/gemini-wisp-scream.png',
     ratio: 1325 / 745,
     height: 85,
     randomFlip: true,
   },
   church: {
     // Sorrowful long-haired figure.
-    src: '/ghost-images/gemini-crying-woman.png',
+    src: 'ghost-images/gemini-crying-woman.png',
     ratio: 433 / 717,
     height: 90,
     randomFlip: true,
   },
   monument: {
     // Standing ghost-girl, reused.
-    src: '/ghost-images/gemini-ghost-girl.png',
+    src: 'ghost-images/gemini-ghost-girl.png',
     ratio: 324 / 632,
     height: 68,
     anchor: 'bottom',
   },
   'info-booth': {
     // Crying-woman wisp, reused.
-    src: '/ghost-images/gemini-crying-woman.png',
+    src: 'ghost-images/gemini-crying-woman.png',
     ratio: 433 / 717,
     height: 90,
     randomFlip: true,
@@ -126,7 +126,7 @@ export function createGhostElement(category: HalloweenCategory): {
   ghost.innerHTML = `
     <div class="ghost-bob">
       <div class="ghost-image-wrap" style="width:${width}px;height:${height}px">
-        <img class="ghost-image" src="${config.src}" alt="" width="${width}" height="${height}" style="filter:${GHOST_FILTER};${imageTransform}" />
+        <img class="ghost-image" src="${import.meta.env.BASE_URL}${config.src}" alt="" width="${width}" height="${height}" style="filter:${GHOST_FILTER};${imageTransform}" />
       </div>
     </div>
   `;
