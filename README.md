@@ -40,6 +40,7 @@ This repository is a pnpm workspaces monorepo.
 | [`@sound-style/core`](./packages/core) | Framework-agnostic core: Web Audio API control, `sound-style.json` parsing/validation, Mapbox Expression evaluation |
 | [`@sound-style/mapbox-gl`](./packages/mapbox-gl) | The project's Mapbox GL JS binding, auto-wiring map events (move, click, queryRenderedFeatures, etc.) |
 | [`examples/vanilla`](./examples/vanilla) | A clean, minimal example app for SDK users (vanilla JS + Mapbox GL JS) |
+| [`examples/halloween`](./examples/halloween) | A themed example built on the same SDK, showcasing a custom Style and ghost annotations |
 
 ## Development
 

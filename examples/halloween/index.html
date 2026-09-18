@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sound-style halloween demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet" />
+    <style>
+      html, body, #map { height: 100%; margin: 0; background: #000; }
+      body { overflow: hidden; }
+
+      /* Dark vignette + circular "flashlight" reveal in the center of the screen. Pure CSS, a
+         fixed pointer-events:none overlay sitting above the map canvas (and above any ghost
+         markers within it) so anything outside the lit circle reads as swallowed by darkness —
+         including ghosts drifting near the edges. Sits below #panel/#debug-panel so the UI stays
+         legible. */
+      #vignette {
+        position: fixed;
+        inset: 0;
+        z-index: 3;
+        pointer-events: none;
+        --flash-radius: min(46vw, 52vh);
+        background: radial-gradient(
+          circle at 50% 50%,
+          rgba(0, 0, 0, 0) 0,
+          rgba(0, 0, 0, 0) calc(var(--flash-radius) * 0.55),
+          rgba(0, 0, 0, 0.5) calc(var(--flash-radius) * 0.85),
+          rgba(0, 0, 0, 0.94) var(--flash-radius),
+          rgba(0, 0, 0, 0.97) 100%
+        );
+        animation: flashlight-flicker 6s ease-in-out infinite;
+      }
+      @keyframes flashlight-flicker {
+        0%, 100% { opacity: 1; }
+        48% { opacity: 0.97; }
+        50% { opacity: 0.91; }
+        52% { opacity: 0.97; }
+      }
+
+      #panel {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        z-index: 10;
+        background: rgba(20, 12, 26, 0.85);
+        color: #f1e9f7;
+        padding: 12px 16px;
+        border-radius: 8px;
+        font-family: system-ui, sans-serif;
+        max-width: 320px;
+        border: 1px solid rgba(255, 140, 0, 0.35);
+      }
+      #panel h1 {
+        margin: 0 0 4px;
+        font-family: 'Creepster', system-ui, sans-serif;
+        font-size: 28px;
+        font-weight: normal;
+        letter-spacing: 1px;
+        color: #ffb347;
+        text-shadow: 0 0 8px rgba(255, 140, 0, 0.6);
+      }
+      #panel button {
+        font-size: 14px;
+        padding: 6px 12px;
+        background: #ff8c00;
+        color: #1a0f22;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 600;
+      }
+      #panel button:disabled { opacity: 0.5; cursor: default; }
+      #panel p { font-size: 13px; line-height: 1.5; margin: 8px 0 0; color: #d8c9e6; }
+      #volume-row { display: none; align-items: center; gap: 8px; margin-top: 10px; font-size: 13px; }
+      #volume-row input { flex: 1; }
+      #info-toggle-row { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 13px; }
+
+      #debug-panel {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        z-index: 10;
+        background: rgba(0, 0, 0, 0.65);
+        color: #fff;
+        font-family: ui-monospace, monospace;
+        font-size: 12px;
+        padding: 4px 8px;
+        border-radius: 4px;
+        pointer-events: none;
+        display: none;
+        flex-direction: column;
+        gap: 2px;
+        white-space: nowrap;
+      }
+      #now-playing-list { list-style: none; margin: 2px 0 0; padding: 0; }
+      #now-playing-list li { color: #ff9e5e; }
+
+      /* #map itself is unpositioned, so its mapboxgl-ctrl children would otherwise stack below
+         #vignette (a positioned, z-index:3 sibling covering the whole viewport) regardless of
+         their own z-index — leaving the bottom-right attribution control swallowed by the
+         vignette's near-opaque corner darkness. Bumping just this corner's z-index above the
+         vignette (matching #panel/#debug-panel's z-index:10) keeps attribution visible without
+         punching a hole in the vignette effect itself.
+         `!important` is required here, not optional: mapbox-gl.css sets its own
+         `.mapboxgl-ctrl-bottom-right{...z-index:2}` (grouped with the other 7 corner classes) via
+         its own <style> tag, injected by Vite from `import 'mapbox-gl/dist/mapbox-gl.css'` in
+         main.ts — which lands AFTER this inline block in the document. Same specificity (one
+         class), so without `!important` that later rule silently wins the tie and this override
+         does nothing, even though it looks like it should apply. */
+      .mapboxgl-ctrl-bottom-right { z-index: 10 !important; }
+      /* Even once raised above the vignette (above), Mapbox's default attribution keeps its own
+         stock styling — dark text (mapbox-gl.css sets `.mapboxgl-ctrl-attrib a{color:#000000bf}`)
+         on a translucent white background (`#ffffff80`). Composited over this page's near-black
+         vignette/backdrop, that translucent white reads as a barely-lighter-than-black box with
+         dark-on-dark text: technically painted, practically unreadable.
+         The extra `.mapboxgl-ctrl-bottom-right` ancestor bumps specificity above mapbox-gl.css's
+         own `.mapboxgl-ctrl-attrib a{color:#000000bf}` (one class), so the `color` override below
+         wins on specificity alone, load order aside. `background-color` needs one more: mapbox-gl.
+         css actually sets it via `.mapboxgl-ctrl.mapboxgl-ctrl-attrib{...}` — TWO classes, tying
+         our two-class ancestor selector — so without also matching `.mapboxgl-ctrl` here, source
+         order would decide the tie and mapbox-gl.css (injected later, see the z-index rule above)
+         would still win. */
+      .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl.mapboxgl-ctrl-attrib {
+        background-color: rgba(20, 12, 26, 0.85);
+      }
+      .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl-attrib a {
+        color: #ffb347;
+      }
+      .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl-attrib a:hover {
+        color: #ffd699;
+      }
+
+      .sound-style-attrib {
+        position: relative;
+        display: flex;
+        align-items: center;
+        background-color: #ffffff80;
+        font: 12px/20px "Helvetica Neue", Arial, Helvetica, sans-serif;
+        border-radius: 12px;
+      }
+      .sound-style-attrib--open { border-radius: 0; }
+      .sound-style-attrib-toggle {
+        width: 24px;
+        height: 24px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font-size: 14px;
+        border-radius: 12px;
+      }
+      .sound-style-attrib--open .sound-style-attrib-toggle { display: none; }
+      .sound-style-attrib-panel {
+        display: none;
+        position: relative;
+        padding: 4px 22px 4px 8px;
+        max-width: 260px;
+      }
+      .sound-style-attrib--open .sound-style-attrib-panel { display: block; }
+      .sound-style-attrib-close {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        width: 18px;
+        height: 18px;
+        padding: 0;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font-size: 11px;
+        line-height: 1;
+        color: #000000bf;
+      }
+      .sound-style-attrib-close:hover { color: inherit; }
+      .sound-style-attrib-list { list-style: none; margin: 0; padding: 0; white-space: normal; }
+      .sound-style-attrib-list li { margin: 2px 0; }
+      .sound-style-attrib-list a { color: #000000bf; text-decoration: none; }
+      .sound-style-attrib-list a:hover { color: inherit; text-decoration: underline; }
+
+      /* --- Ghosts ------------------------------------------------------------------------ */
+      /* Rendered via mapboxgl.Marker (a deliberate divergence from this repo's usual GL-layer-
+         only annotation pattern) so their fade/rise/fade-out lifecycle can be driven by plain CSS
+         transitions/keyframes tied to real 'layer:play'/'layer:stop' engine events — see
+         src/ghosts.ts and the ghost lifecycle code in src/main.ts. The ghost artwork itself is
+         real Pixabay-licensed images (see public/ghost-images/NOTICE.md), resized, tinted per
+         category via CSS filters, and made translucent — not hand-drawn. */
+      .ghost {
+        pointer-events: none;
+        opacity: 0;
+        transform: translateY(30px) scale(0.5);
+        filter: blur(5px);
+        transition: opacity 1.3s ease, transform 1.3s ease, filter 1.3s ease;
+      }
+      .ghost.ghost-visible {
+        opacity: 0.72;
+        transform: translateY(-18px) scale(1);
+        filter: blur(0);
+      }
+      .ghost.ghost-leaving {
+        opacity: 0;
+        transform: translateY(-60px) scale(1.15);
+        filter: blur(6px);
+        transition: opacity 1.6s ease, transform 1.6s ease, filter 1.6s ease;
+      }
+      /* gemini-wisp-scream.png (witch-shop) faces/screams toward the upper-right, wisp trailing
+         to the lower-left — so she glides that direction continuously the whole time she's
+         visible, not just at the very start/end: opacity/blur fade in quickly (0.9s) so she's
+         fully visible almost immediately, but the transform keeps gliding toward .ghost-visible's
+         target over a much longer 2.5s (a real click/proximity SE is a fixed ~2s clip — see
+         poi-category-shop.wav — so this deliberately outlasts it), so she's still mid-glide —
+         never arriving early and sitting still before .ghost-leaving/the self-fade below kick in —
+         for as long as the sound plays. .ghost-leaving then picks up from wherever that glide
+         currently is and carries it further, fast, for the final swish away. The mirrored spawn
+         (`ghost-flip`, see src/ghosts.ts) faces upper-left instead, so both phases go the other
+         way. */
+      .ghost--witch-shop {
+        /* A plain transition (not a keyframe animation) so blur only ever decreases,
+           monotonically: more blurred than the other ghosts' hidden state (10px, not 5px) at
+           first, fully sharp by the time she's settled — and she then STAYS sharp through the
+           exit dash too (only opacity fades there, blur doesn't come back). The 260px travel
+           distance itself (not just the duration) is also deliberately modest so she reliably
+           fades out well before reaching the edge of the screen. */
+        filter: blur(10px);
+        /* filter gets its own, longer duration than opacity — she's fully visible quickly (0.9s)
+           but stays blurred well after that, only sharpening later. Kept short enough (1.2s) to
+           finish clearing well before the real click/proximity SE ends (a fixed ~2s clip) —
+           main.ts's WITCH_FADE_DELAY_MS matches this 1.2s so the self-fade actually gets visible
+           time to play before the real audio-driven .ghost-leaving arrives, instead of the two
+           racing to a near-tie. */
+        transition: opacity 0.9s ease-out, filter 1.2s ease-out, transform 2.5s linear;
+      }
+      /* Direction is 15deg off the horizontal (measured from due-right/left), not a 45deg
+         diagonal — mostly sideways with just a slight upward tilt: cos(15deg)=.966,
+         sin(15deg)=.259. */
+      .ghost--witch-shop.ghost-visible {
+        transform: translate(260px, -70px) scale(1);
+        filter: blur(0);
+      }
+      .ghost--witch-shop.ghost-flip.ghost-visible {
+        transform: translate(-260px, -70px) scale(1);
+      }
+      /* Added by main.ts (a plain setTimeout, ~1.2s after she becomes visible — matching how long
+         her `filter` transition takes to actually reach blur(0)), not a @keyframes animation: she
+         starts fading to fully transparent right as she finishes sharpening, on her own, instead
+         of sitting at a constant opacity until the real SE-driven .ghost-leaving eventually
+         arrives. Deliberately NOT the `transition` shorthand — that replaces the *entire*
+         transition list (all 3 properties), which cancelled whatever was still mid-flight on
+         `transform` and snapped her straight to its end position, only to have .ghost-leaving's
+         own transform transition resume moving her again later — reading as a sudden jump partway
+         through. `transition-duration`/`-timing-function` instead apply positionally against the
+         transition-property list `.ghost--witch-shop` already declared (opacity, filter,
+         transform), so only opacity's timing actually changes here — the other two values must
+         still match `.ghost--witch-shop`'s own durations exactly (1.2s, 2.5s) to stay a no-op for
+         them (i.e. she keeps gliding, at the exact same pace, all through the fade). */
+      .ghost--witch-shop.ghost-visible.ghost-fading {
+        opacity: 0;
+        transition-duration: 2s, 1.2s, 2.5s;
+        transition-timing-function: linear, ease-out, linear;
+      }
+      .ghost--witch-shop.ghost-leaving {
+        /* Only a bit further than .ghost-visible's own target (260px), not another huge leap —
+           she's meant to vanish shortly after this, not still be dashing across most of the map. */
+        transform: translate(445px, -119px) scale(1.15);
+        /* filter explicitly held at blur(0) — otherwise the base .ghost.ghost-leaving rule's
+           blur(6px) would apply, since this rule doesn't win on a property it doesn't declare. */
+        filter: blur(0);
+        /* Fast so the hand-off from the ongoing glide to the final dash reads as an acceleration,
+           not a stall. */
+        transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+      }
+      .ghost--witch-shop.ghost-flip.ghost-leaving {
+        transform: translate(-445px, -119px) scale(1.15);
+      }
+      /* gemini-crying-woman.png (church/info-booth) fades out noticeably faster than the shared
+         .ghost.ghost-leaving default (1.6s) — she's gone in a quarter second instead of
+         lingering. */
+      .ghost--church.ghost-leaving,
+      .ghost--info-booth.ghost-leaving {
+        transition: opacity 0.25s ease, transform 0.25s ease, filter 0.25s ease;
+      }
+      /* gemini-ghost-girl.png (monument only — cemetery moved to gemini-skull-scream.png, a
+         floating apparition like the other categories) is standing, not floating — she just fades
+         in/out in place: no translateY rise (from the base rules), no scale pop, no blur (only
+         pure opacity change). Her hair/head is much brighter than her dimmer dress/legs in the
+         source art, so any *slow* opacity fade lets the bright top cross the eye's "now visible"
+         threshold well before the dim bottom does — which reads as her silhouette growing upward
+         out of nothing, even with position/blur/scale held completely fixed (confirmed with pixel
+         sampling: the brightness bounding box's top edge crept upward over ~1s even with
+         transform/filter frozen). A near-instant opacity fade doesn't leave time for that
+         differential reveal to be perceptible. */
+      .ghost--monument,
+      .ghost--monument.ghost-visible,
+      .ghost--monument.ghost-leaving {
+        transform: none;
+        filter: none;
+      }
+      .ghost--monument {
+        transition: opacity 0.12s linear;
+      }
+      .ghost--monument.ghost-leaving {
+        transition: opacity 0.3s linear;
+      }
+      .ghost-bob { animation: none; }
+      .ghost.ghost-visible .ghost-bob {
+        animation: ghost-bob 4.2s ease-in-out infinite;
+      }
+      @keyframes ghost-bob {
+        0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+        50% { transform: translateY(-10px) rotate(1.5deg); }
+      }
+      /* This must come AFTER .ghost.ghost-visible .ghost-bob above — same specificity (3 classes
+         each), so source order decides the winner. An earlier attempt at this same override sat
+         BEFORE that rule and was silently beaten by it, leaving the idle bob (a slow up/down
+         oscillation) running the whole time — which is exactly what read as "floats up a little,
+         then settles back down" even after every other movement was removed. */
+      .ghost--monument.ghost-visible .ghost-bob {
+        animation: none;
+      }
+
+      .ghost-image-wrap { position: relative; }
+      .ghost-image { display: block; width: 100%; height: 100%; object-fit: contain; }
+      /* The white/monochrome glow filter lives on the <img>'s inline style (see src/ghosts.ts,
+         GHOST_FILTER) so it stays in one place next to the image config it belongs to. */
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="vignette"></div>
+    <div id="debug-panel">
+      <div id="debug-coords">lng: -, lat: -, zoom: -</div>
+      <div>playing:</div>
+      <ul id="now-playing-list"><li>-</li></ul>
+    </div>
+    <div id="panel">
+      <h1>🎃 sound-style: halloween</h1>
+      <button id="enable-audio" type="button">Enable audio</button>
+      <button id="roam-sf" type="button" style="margin-left: 8px;">Roam SF</button>
+      <p id="status">
+        Click "Enable audio", then click a POI marker (or get close to one) to summon its ghost —
+        every kind of haunted place has its own.
+      </p>
+      <div id="volume-row">
+        <label for="master-volume">Master volume</label>
+        <input id="master-volume" type="range" min="0" max="1" step="0.01" value="0.6" />
+      </div>
+      <div id="info-toggle-row">
+        <label for="info-toggle">Show info</label>
+        <input id="info-toggle" type="checkbox" />
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

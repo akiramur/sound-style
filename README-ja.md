@@ -39,6 +39,7 @@ _English: [README.md](./README.md)_
 | [`@sound-style/core`](./packages/core) | Web Audio APIの操作、`sound-style.json`のパース・検証、Mapbox Expressionの評価を行うフレームワーク非依存のコア |
 | [`@sound-style/mapbox-gl`](./packages/mapbox-gl) | Mapbox GL JSのイベント（move, click, queryRenderedFeatures等）と自動連動するバインディング |
 | [`examples/vanilla`](./examples/vanilla) | SDK利用者向けのクリーンな最小構成のサンプルアプリ（vanilla JS + Mapbox GL JS） |
+| [`examples/halloween`](./examples/halloween) | 同じSDKを使ったテーマ別サンプルアプリ。カスタムStyleとゴースト注釈を紹介 |
 
 ## 開発
 

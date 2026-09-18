@@ -43,9 +43,24 @@ jobs:
           VITE_AUDIO_BASE_URL: https://cdn.jsdelivr.net/gh/akiramur/sound-style-assets@v1.1.4/
         run: pnpm exec vite build
 
+      - name: Build examples/halloween
+        working-directory: examples/halloween
+        env:
+          DEPLOY_BASE: /sound-style/halloween/
+          VITE_MAPBOX_ACCESS_TOKEN: ${{ secrets.MAPBOX_ACCESS_TOKEN }}
+          VITE_AUDIO_BASE_URL: https://cdn.jsdelivr.net/gh/akiramur/sound-style-assets@v1.1.4/
+        run: pnpm exec vite build
+
+      - name: Combine demo builds
+        run: |
+          mkdir -p site
+          cp -r examples/vanilla/dist/. site/
+          mkdir -p site/halloween
+          cp -r examples/halloween/dist/. site/halloween/
+
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: examples/vanilla/dist
+          path: site
 
   deploy:
     needs: build

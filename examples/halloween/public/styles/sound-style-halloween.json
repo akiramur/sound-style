@@ -1,0 +1,3370 @@
+{
+  "version": 1,
+  "name": "sound-style-demo-halloween",
+  "sources": {
+    "halloween-ambient-night": {
+      "type": "single",
+      "url": "/audio-halloween/halloween-ambient-night.mp3",
+      "loop": true,
+      "streaming": true
+    },
+    "halloween-ambient-alt": {
+      "type": "single",
+      "url": "/audio-halloween/halloween-ambient-alt.mp3",
+      "loop": true,
+      "streaming": true
+    },
+    "poi-category-sfx/cemetery": {
+      "type": "single",
+      "url": "/audio-halloween/cemetery.mp3"
+    },
+    "poi-category-sfx/dog-park": {
+      "type": "single",
+      "url": "/audio-halloween/dog-park.mp3"
+    },
+    "poi-category-sfx/crow": {
+      "type": "single",
+      "url": "/audio-halloween/crow.mp3"
+    },
+    "poi-category-sfx/zoo": {
+      "type": "single",
+      "url": "/audio-halloween/zoo.mp3"
+    },
+    "poi-category-sfx/aquarium": {
+      "type": "single",
+      "url": "/audio-halloween/aquarium.mp3"
+    },
+    "poi-category-sfx/veterinary": {
+      "type": "single",
+      "url": "/audio-halloween/veterinary.mp3"
+    },
+    "poi-category-sfx/horse-riding": {
+      "type": "single",
+      "url": "/audio-halloween/horse-riding.mp3"
+    },
+    "poi-category-sfx/racetrack-horse": {
+      "type": "single",
+      "url": "/audio-halloween/racetrack-horse.mp3"
+    },
+    "poi-category-sfx/haunted-mansion": {
+      "type": "single",
+      "url": "/audio-halloween/haunted-mansion.mp3"
+    },
+    "poi-category-sfx/witch-shop": {
+      "type": "single",
+      "url": "/audio-halloween/witch-shop.mp3"
+    },
+    "poi-category-sfx/shop": {
+      "type": "single",
+      "url": "/audio-halloween/shop.mp3"
+    },
+    "poi-category-sfx/restaurant": {
+      "type": "single",
+      "url": "/audio-halloween/restaurant.mp3"
+    },
+    "poi-category-sfx/bar": {
+      "type": "single",
+      "url": "/audio-halloween/bar.mp3"
+    },
+    "poi-category-sfx/alcohol-shop": {
+      "type": "single",
+      "url": "/audio-halloween/alcohol-shop.mp3"
+    },
+    "poi-category-sfx/car": {
+      "type": "single",
+      "url": "/audio-halloween/car.mp3"
+    },
+    "poi-category-sfx/car-repair": {
+      "type": "single",
+      "url": "/audio-halloween/car-repair.mp3"
+    },
+    "poi-category-sfx/car-wash": {
+      "type": "single",
+      "url": "/audio-halloween/car-wash.mp3"
+    },
+    "poi-category-sfx/woman-scream": {
+      "type": "single",
+      "url": "/audio-halloween/woman-scream.mp3"
+    },
+    "poi-category-sfx/highway": {
+      "type": "single",
+      "url": "/audio-halloween/highway.mp3"
+    },
+    "poi-category-sfx/parking": {
+      "type": "single",
+      "url": "/audio-halloween/parking.mp3"
+    },
+    "poi-category-sfx/bicycle": {
+      "type": "single",
+      "url": "/audio-halloween/bicycle.mp3"
+    },
+    "poi-category-sfx/laundry": {
+      "type": "single",
+      "url": "/audio-halloween/laundry.mp3"
+    },
+    "poi-category-sfx/industry": {
+      "type": "single",
+      "url": "/audio-halloween/industry.mp3"
+    },
+    "poi-category-sfx/church-bells": {
+      "type": "single",
+      "url": "/audio-halloween/church-bells.mp3"
+    },
+    "poi-category-sfx/scary-eerie-voice": {
+      "type": "single",
+      "url": "/audio-halloween/scary-eerie-voice.mp3"
+    },
+    "poi-category-sfx/monument": {
+      "type": "single",
+      "url": "/audio-halloween/ghost-girl.mp3"
+    },
+    "poi-category-sfx/info-booth": {
+      "type": "single",
+      "url": "/audio-halloween/crying-woman.mp3"
+    },
+    "poi-category-sfx/fitness-centre": {
+      "type": "single",
+      "url": "/audio-halloween/fitness-centre.mp3"
+    },
+    "poi-category-sfx/lodging": {
+      "type": "single",
+      "url": "/audio-halloween/lodging.mp3"
+    },
+    "poi-category-sfx/casino": {
+      "type": "single",
+      "url": "/audio-halloween/casino.mp3"
+    },
+    "poi-category-sfx/bowling-alley": {
+      "type": "single",
+      "url": "/audio-halloween/bowling-alley.mp3"
+    },
+    "poi-category-sfx/baseball": {
+      "type": "single",
+      "url": "/audio-halloween/baseball.mp3"
+    },
+    "poi-category-sfx/basketball": {
+      "type": "single",
+      "url": "/audio-halloween/basketball.mp3"
+    },
+    "poi-category-sfx/library": {
+      "type": "single",
+      "url": "/audio-halloween/library.mp3"
+    },
+    "poi-category-sfx/viewpoint": {
+      "type": "single",
+      "url": "/audio-halloween/viewpoint.mp3"
+    },
+    "poi-category-sfx/school": {
+      "type": "single",
+      "url": "/audio-halloween/school.mp3"
+    },
+    "poi-category-sfx/museum": {
+      "type": "single",
+      "url": "/audio-halloween/museum.mp3"
+    },
+    "poi-category-sfx/harbor": {
+      "type": "single",
+      "url": "/audio-halloween/harbor.mp3"
+    },
+    "poi-category-sfx/fire-station": {
+      "type": "single",
+      "url": "/audio-halloween/fire-station.mp3"
+    },
+    "poi-category-sfx/castle": {
+      "type": "single",
+      "url": "/audio-halloween/castle.mp3"
+    },
+    "poi-category-sfx/prison": {
+      "type": "single",
+      "url": "/audio-halloween/prison.mp3"
+    },
+    "poi-category-sfx/pharmacy": {
+      "type": "single",
+      "url": "/audio-halloween/pharmacy.mp3"
+    },
+    "poi-category-sfx/toilet": {
+      "type": "single",
+      "url": "/audio-halloween/toilet.mp3"
+    },
+    "poi-category-sfx/watermill": {
+      "type": "single",
+      "url": "/audio-halloween/watermill.mp3"
+    },
+    "halloween-ambient-sea": {
+      "type": "single",
+      "url": "/audio-halloween/halloween-ambient-sea.mp3"
+    },
+    "halloween-ambient-desert": {
+      "type": "single",
+      "url": "/audio-halloween/halloween-ambient-desert.mp3"
+    },
+    "halloween-ambient-forest": {
+      "type": "single",
+      "url": "/audio-halloween/halloween-ambient-forest.mp3"
+    }
+  },
+  "sound-layers": [
+    {
+      "id": "halloween-area-bgm-switch-urban",
+      "type": "bgm-state",
+      "source": "halloween-ambient-night",
+      "layout": {
+        "sound-state-property": "unused"
+      },
+      "paint": {
+        "sound-volume": 0.8,
+        "sound-fade-duration": 2000
+      }
+    },
+    {
+      "id": "halloween-area-bgm-switch-sea",
+      "type": "bgm-state",
+      "source": "halloween-ambient-sea",
+      "layout": {
+        "sound-state-property": "unused"
+      },
+      "paint": {
+        "sound-volume": 0.8,
+        "sound-fade-duration": 2000
+      }
+    },
+    {
+      "id": "halloween-area-bgm-switch-desert",
+      "type": "bgm-state",
+      "source": "halloween-ambient-desert",
+      "layout": {
+        "sound-state-property": "unused"
+      },
+      "paint": {
+        "sound-volume": 0.8,
+        "sound-fade-duration": 2000
+      }
+    },
+    {
+      "id": "halloween-area-bgm-switch-forest",
+      "type": "bgm-state",
+      "source": "halloween-ambient-forest",
+      "layout": {
+        "sound-state-property": "unused"
+      },
+      "paint": {
+        "sound-volume": 0.8,
+        "sound-fade-duration": 2000
+      }
+    },
+    {
+      "id": "halloween-world-view-bgm-override",
+      "type": "bgm-state",
+      "source": "halloween-ambient-alt",
+      "layout": {
+        "sound-state-property": "unused"
+      },
+      "paint": {
+        "sound-volume": 0.8,
+        "sound-fade-duration": 2000
+      }
+    },
+    {
+      "id": "halloween-ping-cemetery",
+      "type": "event",
+      "source": "poi-category-sfx/cemetery",
+      "target-layer": "halloween-poi-symbols",
+      "filter": [
+        "==",
+        [
+          "get",
+          "category"
+        ],
+        "cemetery"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.6
+      }
+    },
+    {
+      "id": "halloween-ping-haunted-mansion",
+      "type": "event",
+      "source": "poi-category-sfx/woman-scream",
+      "target-layer": "halloween-poi-symbols",
+      "filter": [
+        "==",
+        [
+          "get",
+          "category"
+        ],
+        "haunted-mansion"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.45
+      }
+    },
+    {
+      "id": "halloween-ping-witch-shop",
+      "type": "event",
+      "source": "poi-category-sfx/woman-scream",
+      "target-layer": "halloween-poi-symbols",
+      "filter": [
+        "==",
+        [
+          "get",
+          "category"
+        ],
+        "witch-shop"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.6
+      }
+    },
+    {
+      "id": "halloween-ping-church",
+      "type": "event",
+      "source": "poi-category-sfx/woman-scream",
+      "target-layer": "halloween-poi-symbols",
+      "filter": [
+        "==",
+        [
+          "get",
+          "category"
+        ],
+        "church"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.6
+      }
+    },
+    {
+      "id": "halloween-ping-monument",
+      "type": "event",
+      "source": "poi-category-sfx/woman-scream",
+      "target-layer": "halloween-poi-symbols",
+      "filter": [
+        "==",
+        [
+          "get",
+          "category"
+        ],
+        "monument"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.6
+      }
+    },
+    {
+      "id": "halloween-ping-info-booth",
+      "type": "event",
+      "source": "poi-category-sfx/woman-scream",
+      "target-layer": "halloween-poi-symbols",
+      "filter": [
+        "==",
+        [
+          "get",
+          "category"
+        ],
+        "info-booth"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.6
+      }
+    },
+    {
+      "id": "halloween-ping-real-cemetery",
+      "type": "event",
+      "source": "poi-category-sfx/cemetery",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "cemetery"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-dog-park",
+      "type": "event",
+      "source": "poi-category-sfx/dog-park",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "dog-park"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-campsite",
+      "type": "event",
+      "source": "poi-category-sfx/veterinary",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "campsite"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-farm",
+      "type": "event",
+      "source": "poi-category-sfx/crow",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "farm"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-garden",
+      "type": "event",
+      "source": "poi-category-sfx/cemetery",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "garden"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-park",
+      "type": "event",
+      "source": "poi-category-sfx/crow",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "park"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-picnic-site",
+      "type": "event",
+      "source": "poi-category-sfx/cemetery",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "picnic-site"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-waterfall",
+      "type": "event",
+      "source": "poi-category-sfx/cemetery",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "waterfall"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-hot-spring",
+      "type": "event",
+      "source": "poi-category-sfx/cemetery",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "hot-spring"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-beach",
+      "type": "event",
+      "source": "poi-category-sfx/cemetery",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "beach"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-watermill",
+      "type": "event",
+      "source": "poi-category-sfx/watermill",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "watermill"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-castle",
+      "type": "event",
+      "source": "poi-category-sfx/castle",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "castle"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-attraction",
+      "type": "event",
+      "source": "poi-category-sfx/church-bells",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "attraction"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-landmark",
+      "type": "event",
+      "source": "poi-category-sfx/haunted-mansion",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "landmark"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-theatre",
+      "type": "event",
+      "source": "poi-category-sfx/scary-eerie-voice",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "theatre"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-cinema",
+      "type": "event",
+      "source": "poi-category-sfx/scary-eerie-voice",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "cinema"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-casino",
+      "type": "event",
+      "source": "poi-category-sfx/casino",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "casino"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-amusement-park",
+      "type": "event",
+      "source": "poi-category-sfx/church-bells",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "amusement-park"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-zoo",
+      "type": "event",
+      "source": "poi-category-sfx/zoo",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "zoo"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-aquarium",
+      "type": "event",
+      "source": "poi-category-sfx/aquarium",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "aquarium"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-heliport",
+      "type": "event",
+      "source": "poi-category-sfx/haunted-mansion",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "heliport"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-racetrack",
+      "type": "event",
+      "source": "poi-category-sfx/haunted-mansion",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "racetrack"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-racetrack-horse",
+      "type": "event",
+      "source": "poi-category-sfx/racetrack-horse",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "racetrack-horse"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-windmill",
+      "type": "event",
+      "source": "poi-category-sfx/haunted-mansion",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "windmill"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-communications-tower",
+      "type": "event",
+      "source": "poi-category-sfx/haunted-mansion",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "communications-tower"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-stadium",
+      "type": "event",
+      "source": "poi-category-sfx/haunted-mansion",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "stadium"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-american-football",
+      "type": "event",
+      "source": "poi-category-sfx/haunted-mansion",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "american-football"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-baseball",
+      "type": "event",
+      "source": "poi-category-sfx/baseball",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "baseball"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-basketball",
+      "type": "event",
+      "source": "poi-category-sfx/basketball",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "basketball"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-bowling-alley",
+      "type": "event",
+      "source": "poi-category-sfx/bowling-alley",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "bowling-alley"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-golf",
+      "type": "event",
+      "source": "poi-category-sfx/haunted-mansion",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "golf"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-tennis",
+      "type": "event",
+      "source": "poi-category-sfx/haunted-mansion",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "tennis"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-table-tennis",
+      "type": "event",
+      "source": "poi-category-sfx/haunted-mansion",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "table-tennis"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-volleyball",
+      "type": "event",
+      "source": "poi-category-sfx/haunted-mansion",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "volleyball"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-skateboard",
+      "type": "event",
+      "source": "poi-category-sfx/haunted-mansion",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "skateboard"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-horse-riding",
+      "type": "event",
+      "source": "poi-category-sfx/horse-riding",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "horse-riding"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-swimming",
+      "type": "event",
+      "source": "poi-category-sfx/haunted-mansion",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "swimming"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-fitness-centre",
+      "type": "event",
+      "source": "poi-category-sfx/fitness-centre",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "fitness-centre"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-skiing",
+      "type": "event",
+      "source": "poi-category-sfx/haunted-mansion",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "skiing"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-music",
+      "type": "event",
+      "source": "poi-category-sfx/haunted-mansion",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "music"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-embassy",
+      "type": "event",
+      "source": "poi-category-sfx/haunted-mansion",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "embassy"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-town-hall",
+      "type": "event",
+      "source": "poi-category-sfx/haunted-mansion",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "town-hall"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-lodging",
+      "type": "event",
+      "source": "poi-category-sfx/lodging",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "lodging"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.35
+      }
+    },
+    {
+      "id": "halloween-ping-real-monument",
+      "type": "event",
+      "source": "poi-category-sfx/monument",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "monument"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-museum",
+      "type": "event",
+      "source": "poi-category-sfx/museum",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "museum"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-art-gallery",
+      "type": "event",
+      "source": "poi-category-sfx/monument",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "art-gallery"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-library",
+      "type": "event",
+      "source": "poi-category-sfx/library",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "library"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-college",
+      "type": "event",
+      "source": "poi-category-sfx/monument",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "college"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-school",
+      "type": "event",
+      "source": "poi-category-sfx/school",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "school"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-playground",
+      "type": "event",
+      "source": "poi-category-sfx/monument",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "playground"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-mountain",
+      "type": "event",
+      "source": "poi-category-sfx/monument",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "mountain"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-mountain-range",
+      "type": "event",
+      "source": "poi-category-sfx/monument",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "mountain-range"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-peak",
+      "type": "event",
+      "source": "poi-category-sfx/monument",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "peak"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-pitch",
+      "type": "event",
+      "source": "poi-category-sfx/monument",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "pitch"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-globe",
+      "type": "event",
+      "source": "poi-category-sfx/monument",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "globe"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-viewpoint",
+      "type": "event",
+      "source": "poi-category-sfx/viewpoint",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "viewpoint"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-doctor",
+      "type": "event",
+      "source": "poi-category-sfx/monument",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "doctor"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-hospital",
+      "type": "event",
+      "source": "poi-category-sfx/monument",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "hospital"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-slipway",
+      "type": "event",
+      "source": "poi-category-sfx/monument",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "slipway"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-shop",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "shop"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-bakery",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "bakery"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-bank",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "bank"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-clothing-store",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "clothing-store"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-confectionery",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "confectionery"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-convenience",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "convenience"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-furniture",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "furniture"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-hardware",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "hardware"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-grocery",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "grocery"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-jewelry-store",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "jewelry-store"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-mobile-phone",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "mobile-phone"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-optician",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "optician"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-pharmacy",
+      "type": "event",
+      "source": "poi-category-sfx/pharmacy",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "pharmacy"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-post",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "post"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-shoe",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "shoe"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-suitcase",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "suitcase"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-watch",
+      "type": "event",
+      "source": "poi-category-sfx/shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "watch"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-bar",
+      "type": "event",
+      "source": "poi-category-sfx/bar",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "bar"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-beer",
+      "type": "event",
+      "source": "poi-category-sfx/woman-scream",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "beer"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.6
+      }
+    },
+    {
+      "id": "halloween-ping-fast-food",
+      "type": "event",
+      "source": "poi-category-sfx/bar",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "fast-food"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-cafe",
+      "type": "event",
+      "source": "poi-category-sfx/bar",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "cafe"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-restaurant",
+      "type": "event",
+      "source": "poi-category-sfx/restaurant",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "restaurant"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-restaurant-casual",
+      "type": "event",
+      "source": "poi-category-sfx/restaurant",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "restaurant-casual"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-restaurant-noodle",
+      "type": "event",
+      "source": "poi-category-sfx/restaurant",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "restaurant-noodle"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-restaurant-pizza",
+      "type": "event",
+      "source": "poi-category-sfx/restaurant",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "restaurant-pizza"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-restaurant-seafood",
+      "type": "event",
+      "source": "poi-category-sfx/restaurant",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "restaurant-seafood"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-restaurant-sushi",
+      "type": "event",
+      "source": "poi-category-sfx/restaurant",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "restaurant-sushi"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-ice-cream",
+      "type": "event",
+      "source": "poi-category-sfx/restaurant",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "ice-cream"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-alcohol-shop",
+      "type": "event",
+      "source": "poi-category-sfx/alcohol-shop",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "alcohol-shop"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-car",
+      "type": "event",
+      "source": "poi-category-sfx/car",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "car"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-car-rental",
+      "type": "event",
+      "source": "poi-category-sfx/car",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "car-rental"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-car-repair",
+      "type": "event",
+      "source": "poi-category-sfx/car-repair",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "car-repair"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-car-wash",
+      "type": "event",
+      "source": "poi-category-sfx/car-wash",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "car-wash"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-fuel",
+      "type": "event",
+      "source": "poi-category-sfx/woman-scream",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "fuel"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.6
+      }
+    },
+    {
+      "id": "halloween-ping-taxi",
+      "type": "event",
+      "source": "poi-category-sfx/car",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "taxi"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-toll",
+      "type": "event",
+      "source": "poi-category-sfx/highway",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "toll"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-tunnel",
+      "type": "event",
+      "source": "poi-category-sfx/highway",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "tunnel"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-bridge",
+      "type": "event",
+      "source": "poi-category-sfx/highway",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "bridge"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-highway-rest-area",
+      "type": "event",
+      "source": "poi-category-sfx/highway",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "highway-rest-area"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-highway-services",
+      "type": "event",
+      "source": "poi-category-sfx/highway",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "highway-services"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-parking",
+      "type": "event",
+      "source": "poi-category-sfx/parking",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "parking"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-parking-garage",
+      "type": "event",
+      "source": "poi-category-sfx/parking",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "parking-garage"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-parking-paid",
+      "type": "event",
+      "source": "poi-category-sfx/parking",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "parking-paid"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-charging-station",
+      "type": "event",
+      "source": "poi-category-sfx/parking",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "charging-station"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-bicycle",
+      "type": "event",
+      "source": "poi-category-sfx/bicycle",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "bicycle"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-laundry",
+      "type": "event",
+      "source": "poi-category-sfx/laundry",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "laundry"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-industry",
+      "type": "event",
+      "source": "poi-category-sfx/industry",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "industry"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-place-of-worship",
+      "type": "event",
+      "source": "poi-category-sfx/church-bells",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "place-of-worship"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-religious-christian",
+      "type": "event",
+      "source": "poi-category-sfx/church-bells",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "religious-christian"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-religious-buddhist",
+      "type": "event",
+      "source": "poi-category-sfx/church-bells",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "religious-buddhist"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-religious-jewish",
+      "type": "event",
+      "source": "poi-category-sfx/church-bells",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "religious-jewish"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-religious-muslim",
+      "type": "event",
+      "source": "poi-category-sfx/church-bells",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "religious-muslim"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-religious-shinto",
+      "type": "event",
+      "source": "poi-category-sfx/church-bells",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "religious-shinto"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-information",
+      "type": "event",
+      "source": "poi-category-sfx/info-booth",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "information"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-police",
+      "type": "event",
+      "source": "poi-category-sfx/info-booth",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "police"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-prison",
+      "type": "event",
+      "source": "poi-category-sfx/prison",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "prison"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-ranger-station",
+      "type": "event",
+      "source": "poi-category-sfx/info-booth",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "ranger-station"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-fire-station",
+      "type": "event",
+      "source": "poi-category-sfx/fire-station",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "fire-station"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-dentist",
+      "type": "event",
+      "source": "poi-category-sfx/info-booth",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "dentist"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-veterinary",
+      "type": "event",
+      "source": "poi-category-sfx/veterinary",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "veterinary"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-toilet",
+      "type": "event",
+      "source": "poi-category-sfx/toilet",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "toilet"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-drinking-water",
+      "type": "event",
+      "source": "poi-category-sfx/info-booth",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "drinking-water"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-airport",
+      "type": "event",
+      "source": "poi-category-sfx/info-booth",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "airport"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-airfield",
+      "type": "event",
+      "source": "poi-category-sfx/info-booth",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "airfield"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    },
+    {
+      "id": "halloween-ping-harbor",
+      "type": "event",
+      "source": "poi-category-sfx/harbor",
+      "target-featureset": {
+        "featuresetId": "poi",
+        "importId": "basemap"
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "maki"
+        ],
+        "harbor"
+      ],
+      "layout": {
+        "sound-trigger": "click"
+      },
+      "paint": {
+        "sound-volume": 0.5
+      }
+    }
+  ],
+  "proximity-trigger-groups": [
+    {
+      "id": "halloween-proximity",
+      "sources": [
+        {
+          "kind": "property",
+          "target-layer": "halloween-poi-symbols",
+          "property": "category"
+        },
+        {
+          "kind": "layer-prefix",
+          "target-featureset": {
+            "featuresetId": "poi",
+            "importId": "basemap"
+          }
+        }
+      ],
+      "radius-meters": 500,
+      "layer-prefix": "halloween-ping-",
+      "max-per-tick": 3,
+      "stagger-ms": 400,
+      "max-concurrent": 4,
+      "category-cooldown-ms": 8000,
+      "once-only": true,
+      "minzoom": 11
+    }
+  ],
+  "bgm-priority-groups": [
+    {
+      "id": "halloween-area-bgm-priority",
+      "dimensions": {
+        "zoom": {
+          "kind": "zoom"
+        },
+        "terrain": {
+          "kind": "query",
+          "target-layer": [
+            "terrain-query-water",
+            "terrain-query-landuse",
+            "terrain-query-landcover"
+          ],
+          "property": [
+            "case",
+            [
+              "!",
+              [
+                "has",
+                "class"
+              ]
+            ],
+            "sea",
+            [
+              "==",
+              [
+                "get",
+                "class"
+              ],
+              "sand"
+            ],
+            "desert",
+            [
+              "==",
+              [
+                "get",
+                "class"
+              ],
+              "wood"
+            ],
+            "forest",
+            [
+              "in",
+              [
+                "get",
+                "class"
+              ],
+              [
+                "literal",
+                [
+                  "residential",
+                  "commercial_area",
+                  "industrial"
+                ]
+              ]
+            ],
+            "urban",
+            ""
+          ]
+        }
+      },
+      "tiers": [
+        {
+          "layer": "halloween-world-view-bgm-override",
+          "match": {
+            "zoom": {
+              "lte": 2
+            }
+          },
+          "state": "world"
+        },
+        {
+          "layer": "halloween-area-bgm-switch-urban",
+          "match": {
+            "terrain": "urban"
+          },
+          "state": "urban"
+        },
+        {
+          "layer": "halloween-area-bgm-switch-sea",
+          "match": {
+            "terrain": "sea"
+          },
+          "state": "sea"
+        },
+        {
+          "layer": "halloween-area-bgm-switch-desert",
+          "match": {
+            "terrain": "desert"
+          },
+          "state": "desert"
+        },
+        {
+          "layer": "halloween-area-bgm-switch-forest",
+          "match": {
+            "terrain": "forest"
+          },
+          "state": "forest"
+        }
+      ]
+    }
+  ]
+}
